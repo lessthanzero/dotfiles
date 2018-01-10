@@ -79,6 +79,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Homebrew
+alias brewup='brew update && brew doctor && brew outdated && brew upgrade && brew cleanup -s --prune=1'
+
 #include Z
 . ~/z.sh
 export PATH="/usr/local/sbin:$PATH"
