@@ -1,5 +1,5 @@
 [user]
-	name = sashakatin
+	name = Alexander Katin
 	email = aleksandr.katin@gmail.com
 [core]
 	excludesfile = /Users/sashakatin/.gitignore_global
@@ -12,7 +12,7 @@
 [push]
 	default = simple
 [filter "lfs"]
+	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-	clean = git-lfs clean -- %f
