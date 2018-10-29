@@ -1,18 +1,29 @@
 [user]
-	name = Alexander Katin
-	email = aleksandr.katin@gmail.com
+  useConfigOnly = true
+  name = Alexander Katin
+  email = aleksandr.katin@gmail.com
+[github]
+  user = lessthanzero
+[credential]
+  helper = osxkeychain
 [core]
-	excludesfile = /Users/sashakatin/.gitignore_global
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Users/sashakatin/Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+  excludesfile = ~/Developer/dotfiles/gitignore
+  editor = code --wait
 [push]
-	default = simple
+  default = simple
+  followTags = true
+[grep]
+  lineNumber = true
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[alias]
+  hist = log --pretty=format:\"%h - %s [%an] (%cr)\" --graph --date=short
+  lnm = log --no-merges --first-parent
+  lnice = log --abbrev-commit --oneline --graph
+  status = status -sb
+  # Show the diff between the latest commit and the current state
+  d = !"git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat"
+  save = stash save --include-untracked
