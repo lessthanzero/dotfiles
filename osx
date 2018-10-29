@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-
-sudo -v
-
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Kill frozen apps
 defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
@@ -11,9 +6,6 @@ defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-
-# Disable auto-correct
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 # Sleep in bottom right corner
 defaults write com.apple.dock wvous-br-corner -int 10

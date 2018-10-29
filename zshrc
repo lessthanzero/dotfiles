@@ -83,6 +83,8 @@ source $ZSH/oh-my-zsh.sh
 
 # Homebrew
 alias brewup='brew update && brew doctor && brew outdated && brew upgrade && brew cleanup -s --prune=1'
+export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_NO_INSECURE_REDIRECT=1
 
 #include Z
 . ~/z.sh
