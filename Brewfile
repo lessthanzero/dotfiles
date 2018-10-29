@@ -1,4 +1,3 @@
-brew "git-lfs"
 brew "gitup"
 brew "node"
 brew "yarn"
