@@ -91,6 +91,11 @@ run defaults write com.apple.finder FXPreferredViewStyle -string '"Nlsv"'
 echo "Don't write DS_Store files to network shares."
 run defaults write DSDontWriteNetworkStores com.apple.desktopservices -int 1
 
+echo "Enable development menu in Safari"
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+
 # Security And Privacy Improvements
 echo "Disable Safari from auto-filling sensitive data."
 run defaults write ~/Library/Preferences/com.apple.Safari AutoFillCreditCardData -bool false
@@ -116,29 +121,17 @@ run defaults write ~/Library/Preferences/com.apple.Safari TreatSHA1CertificatesA
 echo "Disable pre-loading websites with high search rankings."
 run defaults write ~/Library/Preferences/com.apple.Safari PreloadTopHit -bool false
 
-echo "Disable Safari search engine suggestions."
-run defaults write ~/Library/Preferences/com.apple.Safari SuppressSearchSuggestions -bool true
-
 echo "Enable Do-Not-Track HTTP header in Safari."
 run defaults write ~/Library/Preferences/com.apple.Safari SendDoNotTrackHTTPHeader -bool true
 
 echo "Disable pdf viewing in Safari."
 run defaults write ~/Library/Preferences/com.apple.Safari WebKitOmitPDFSupport -bool true
 
-echo "Display full website addresses in Safari."
-run defaults write ~/Library/Preferences/com.apple.Safari ShowFullURLInSmartSearchField -bool true
-
 echo "Disable loading remote content in emails in Apple Mail."
 run defaults write ~/Library/Preferences/com.apple.mail-shared DisableURLLoading -bool true
 
 echo "Send junk mail to the junk mail box in Apple Mail."
 run defaults write ~/Library/Containers/com.apple.mail/Data/Library/Preferences/com.apple.mail JunkMailBehavior -int 2
-
-echo "Disable spotlight universal search (don't send info to Apple)."
-run defaults write com.apple.safari UniversalSearchEnabled -int 0
-
-echo "Disable Spotlight Suggestions, Bing Web Search, and other leaky data."
-run python ./fix_leaky_data.py
 
 echo "Disable Captive Portal Hijacking Attack."
 run defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control Active -bool false
@@ -147,23 +140,32 @@ echo "Set screen to lock as soon as the screensaver starts."
 run defaults write com.apple.screensaver askForPassword -int 1
 run defaults write com.apple.screensaver askForPasswordDelay -int 0
 
-echo "Don't default to saving documents to iCloud."
-run defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
-
 echo "Disable crash reporter."
 run defaults write com.apple.CrashReporter DialogType none
 
 echo "Enable Stealth Mode. Computer will not respond to ICMP ping requests or connection attempts from a closed TCP/UDP port."
 run defaults write /Library/Preferences/com.apple.alf stealthenabled -bool true
 
-echo "Set all network interfaces to use Cloudflare DNS (1.1.1.1)."
-run bash ./use_cloudflare_dns.sh
-
 echo "Disable wake on network access."
 run systemsetup -setwakeonnetworkaccess off
 
 echo "Disable Bonjour multicast advertisements."
 run defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool YES
+
+echo "Tap to click anywhere"
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+echo "Sleep in bottom right corner"
+defaults write com.apple.dock wvous-br-corner -int 10
+defaults write com.apple.dock wvous-br-modifier -int 0
+
+echo "Automatically quit printer app once the print jobs complete"
+defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
+
+echo "Kill frozen apps"
+defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 
 # This is disabled by default, but sometimes people turn it on and forget to turn it back off again.
 echo "Turn off remote desktop access."
@@ -184,15 +186,6 @@ run defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
 echo "Turn on Mac App Store auto-update."
 run defaults write com.apple.commerce AutoUpdate -bool true
 
-# Blocklists
-
-echo "Block all Facebook domains."
-if ! grep --quiet facebook /etc/hosts; then
-    run cat block_facebook | sudo tee -a /etc/hosts
-else
-    echo "${dim}▹ Facebook domains already blocked. $reset"
-fi
-
 # Install Applications
 
 # Note: Before installing Homebrew, set the following settings in your .bash_profile for increased privacy.
@@ -206,83 +199,11 @@ else
     run brew update
 fi
 
-echo "Install and configure git."
-run brew install git
-run git config --global user.email "echohack@users.noreply.github.com"
-git config --global user.name "echohack"
+echo '🛠  Installing Homebrew packages…'
+brew bundle
 
-echo "Install jq."
-run brew install jq
-
-echo "Install Habitat."
-run brew tap habitat-sh/habitat
-run brew install hab
-run brew upgrade hab
-
-echo "Install mas (Mac App Store Command Line)."
-run brew install mas
-
-echo "Prevent Google Chrome from Syncing automatically."
-run defaults write com.google.Chrome SyncDisabled -bool true
-run defaults write com.google.Chrome RestrictSigninToPattern -string ".*@example.com"
-
-echo "Install youtube-dl."
-run brew install youtube-dl
-run brew upgrade youtube-dl
-run brew install ffmpeg
-run brew upgrade ffmpeg
-
-echo "Install keyboard flashing tool for Nightfox Mechanical keyboard."
-run brew install dfu-util
-# Flash with dfu-util -a 0 -R -D kiibohd.dfu.bin
-
-echo "Install exercism CLI."
-run brew install exercism
-run brew upgrade exercism
-
-echo "Install spectacle."
-run brew cask install spectacle
-
-echo "Install docker."
-run brew cask install docker
-
-echo "Install VLC."
-run brew cask install vlc
-
-echo "Install LiceCap."
-run brew cask install licecap
-
-echo "Install Visual Studio Code."
-run brew cask install visual-studio-code
-
-echo "Install okta_aws tool for Chef Software AWS integration."
-run brew tap chef/okta_aws
-run brew install okta_aws
-
-testing code commit
-echo "Install Visual Studio Code Extensions."
-vscode_install_ext(){
-    run code --install-extension $@
-}
-vscode_install_ext bungcip.better-toml
-vscode_install_ext mauve.terraform
-vscode_install_ext ms-python.python
-vscode_install_ext octref.vetur
-vscode_install_ext rust-lang.rust
-
-# Trust a curl | bash? Why not.
-echo "Install rust using Rustup."
-rustc --version
-if [[ $? != 0 ]] ; then
-    run curl https://sh.rustup.rs -sSf | sh
-    run rustup update
-fi
-
-echo "Install RLS."
-run rustup component add rls-preview rust-analysis rust-src
-
-echo "Install rustfmt."
-rustup component add rustfmt-preview
+echo '🛠  Installing dotfiles…'
+rcup
 
 # Install all the Mac App Store applications using mas. https://github.com/mas-cli/mas
 mac_app_login=$(mas account | grep @)
@@ -304,11 +225,9 @@ run mas install 904280696
 echo "Install Slack."
 run mas install 803453959
 
-echo "Install Decompressor."
-run mas install 1033480833
-
-echo "Install Speedtest."
-run mas install 1153157709
+# echo "Install Telegram."
+# run mas install 803453959
+#TODO: add apps
 
 echo "Upgrade any Mac App Store applications."
 run mas upgrade
