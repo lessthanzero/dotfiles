@@ -8,6 +8,7 @@ brew "yarn"
 brew "zsh"
 brew "z"
 brew "rcm"
+brew "mas"
 
 cask "transmission"
 cask "visual-studio-code"
