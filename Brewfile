@@ -9,7 +9,5 @@ tap "thoughtbot/formulae"
 brew "rcm"
 
 brew cask install "appcleaner"
-brew cask install "coda"
-brew cask install "mactracker"
 brew cask install "processing"
 brew cask install "spotify"
