@@ -202,6 +202,28 @@ fi
 echo '🛠  Installing Homebrew packages…'
 brew bundle
 
+testing code commit
+echo "Install Visual Studio Code Extensions."
+vscode_install_ext(){
+    run code --install-extension $@
+}
+vscode_install_ext wesbos.theme-cobalt2
+vscode_install_ext formulahendry.auto-close-tag
+vscode_install_ext dbaeumer.vscode-eslint
+vscode_install_ext eamodio.gitlens
+vscode_install_ext xabikos.javascriptsnippets
+vscode_install_ext davidanson.vscode-markdownlint
+vscode_install_ext eg2.vscode-npm-script
+vscode_install_ext christian-kohler.npm-intellisense
+vscode_install_ext esbenp.prettier-vscode
+vscode_install_ext zhouronghui.propertylist
+vscode_install_ext tobiah.language-pde
+vscode_install_ext xabikos.reactsnippets
+vscode_install_ext qinjia.seti-icons
+vscode_install_ext shan.code-settings-sync
+vscode_install_ext ms-vscode.sublime-keybindings
+vscode_install_ext ms-vsliveshare.vsliveshare
+
 echo '🛠  Installing dotfiles…'
 rcup
 
