@@ -105,9 +105,6 @@ run defaults write ~/Library/Preferences/com.apple.Safari AutoFillMiscellaneousF
 echo "Disable Safari from automatically opening files."
 run defaults write ~/Library/Preferences/com.apple.Safari AutoOpenSafeDownloads -bool false
 
-echo "Always block cookies and local storage in Safari."
-run defaults write ~/Library/Preferences/com.apple.Safari BlockStoragePolicy -bool false
-
 echo "Enable Safari warnings when visiting fradulent websites."
 run defaults write ~/Library/Preferences/com.apple.Safari WarnAboutFraudulentWebsites -bool true
 
@@ -120,9 +117,6 @@ run defaults write ~/Library/Preferences/com.apple.Safari TreatSHA1CertificatesA
 
 echo "Disable pre-loading websites with high search rankings."
 run defaults write ~/Library/Preferences/com.apple.Safari PreloadTopHit -bool false
-
-echo "Enable Do-Not-Track HTTP header in Safari."
-run defaults write ~/Library/Preferences/com.apple.Safari SendDoNotTrackHTTPHeader -bool true
 
 echo "Disable pdf viewing in Safari."
 run defaults write ~/Library/Preferences/com.apple.Safari WebKitOmitPDFSupport -bool true
