@@ -1,0 +1,9 @@
+{
+    "dependencies": {
+        "create-react-app": "^2.0.4",
+        "gatsby-cli": "^1.1.52",
+        "n": "^2.1.12",
+        "ntl": "^3.0.0",
+        "npm": "^6.4.1"
+    }
+}
