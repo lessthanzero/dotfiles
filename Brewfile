@@ -1,3 +1,4 @@
+tap "homebrew/cask-fonts"
 tap "thoughtbot/formulae"
 
 brew "p7zip"
@@ -16,3 +17,4 @@ cask "appcleaner"
 cask "processing"
 cask "spotify"
 cask "vlc"
+cask "font-fira-code"
