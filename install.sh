@@ -247,9 +247,53 @@ run mas install 904280696
 echo "Install Slack."
 run mas install 803453959
 
-# echo "Install Telegram."
-# run mas install 803453959
-#TODO: add apps
+echo "Install iA Writer."
+run mas install 775737590
+
+echo "Install Droplr."
+run mas install 498672703
+
+echo "Install iPhoto."
+run mas install 408981381
+
+echo "Install Pixelmator."
+run mas install 407963104
+
+echo "Install 1Password."
+run mas install 443987910
+
+echo "Install Tweetbot."
+run mas install 557168941
+
+echo "Install Numbers."
+run mas install 409203825
+
+echo "Install WhatsApp."
+run mas install 1147396723
+
+echo "Install Pages."
+run mas install 409201541
+
+echo "Install Mactracker."
+run mas install 430255202
+
+echo "Install Affinity Designer."
+run mas install 824171161
+
+echo "Install Telegram."
+run mas install 747648890
+
+# echo "Install GarageBand."
+# run mas install 682658836
+
+# echo "Install iMovie."
+# run mas install 408981434
+
+# echo "Install Apple Configurator 2."
+# run mas install 1037126344
+
+# echo "Install Day One."
+# run mas install 1055511498
 
 echo "Upgrade any Mac App Store applications."
 run mas upgrade
