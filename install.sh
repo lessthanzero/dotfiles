@@ -130,10 +130,6 @@ run defaults write ~/Library/Containers/com.apple.mail/Data/Library/Preferences/
 echo "Disable Captive Portal Hijacking Attack."
 run defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control Active -bool false
 
-echo "Set screen to lock as soon as the screensaver starts."
-run defaults write com.apple.screensaver askForPassword -int 1
-run defaults write com.apple.screensaver askForPasswordDelay -int 0
-
 echo "Disable crash reporter."
 run defaults write com.apple.CrashReporter DialogType none
 
