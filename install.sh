@@ -79,8 +79,8 @@ run defaults write com.apple.universalaccess reduceTransparency -int 1
 echo "Disable mouse enlargement with jiggle."
 run defaults write ~/Library/Preferences/.GlobalPreferences CGDisableCursorLocationMagnification -bool true
 
-echo "Show all filename extensions."
-run defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+# echo "Show all filename extensions."
+# run defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 echo "Disable the warning when changing a file extension."
 run defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
