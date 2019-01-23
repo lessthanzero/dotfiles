@@ -66,6 +66,9 @@ run defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool fal
 echo "Speed up mission control animations."
 run defaults write com.apple.dock expose-animation-duration -float 0.3
 
+echo "Automatically hide and show the Dock."
+defaults write com.apple.dock autohide -bool true
+
 echo "Save screenshots in PNG format."
 run defaults write com.apple.screencapture type -string png
 
@@ -79,8 +82,9 @@ run defaults write com.apple.universalaccess reduceTransparency -int 1
 echo "Disable mouse enlargement with jiggle."
 run defaults write ~/Library/Preferences/.GlobalPreferences CGDisableCursorLocationMagnification -bool true
 
-# echo "Show all filename extensions."
-# run defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+echo "Set the Finder prefs for showing a few different volumes on the Desktop."
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
 echo "Disable the warning when changing a file extension."
 run defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
@@ -95,6 +99,9 @@ echo "Enable development menu in Safari"
 defaults write com.apple.Safari IncludeDevelopMenu -bool true
 defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+
+echo "Copy email addresses as `foo@example.com` instead of `Foo Bar \<foo@example.com\>` in Mail.app"
+defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 
 # Security And Privacy Improvements
 echo "Disable Safari from auto-filling sensitive data."
@@ -120,6 +127,9 @@ run defaults write ~/Library/Preferences/com.apple.Safari PreloadTopHit -bool fa
 
 echo "Disable pdf viewing in Safari."
 run defaults write ~/Library/Preferences/com.apple.Safari WebKitOmitPDFSupport -bool true
+
+echo "Hide Safari's bookmark bar."
+defaults write com.apple.Safari ShowFavoritesBar -bool false
 
 echo "Disable loading remote content in emails in Apple Mail."
 run defaults write ~/Library/Preferences/com.apple.mail-shared DisableURLLoading -bool true
@@ -153,6 +163,17 @@ defaults write com.apple.dock wvous-br-modifier -int 0
 
 echo "Automatically quit printer app once the print jobs complete"
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
+
+echo "Expand save panel by default."
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+
+echo "Expand print panel by default."
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
+defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
+
+echo "Keep folders on top when sorting by name."
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
 
 echo "Kill frozen apps"
 defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
@@ -273,17 +294,17 @@ run mas install 824171161
 echo "Install Telegram."
 run mas install 747648890
 
-# echo "Install GarageBand."
-# run mas install 682658836
+echo "Install GarageBand."
+run mas install 682658836
 
-# echo "Install iMovie."
-# run mas install 408981434
+echo "Install iMovie."
+run mas install 408981434
 
-# echo "Install Apple Configurator 2."
-# run mas install 1037126344
+echo "Install Apple Configurator 2."
+run mas install 1037126344
 
-# echo "Install Day One."
-# run mas install 1055511498
+echo "Install Day One."
+run mas install 1055511498
 
 echo "Upgrade any Mac App Store applications."
 run mas upgrade
