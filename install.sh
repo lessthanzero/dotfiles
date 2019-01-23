@@ -178,6 +178,9 @@ defaults write com.apple.finder _FXSortFoldersFirst -bool true
 echo "Kill frozen apps"
 defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 
+echo "Prevent Photos from opening automatically when devices are plugged in"
+defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
+
 # This is disabled by default, but sometimes people turn it on and forget to turn it back off again.
 echo "Turn off remote desktop access."
 run sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -deactivate -configure -access -off
