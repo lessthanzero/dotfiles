@@ -86,6 +86,9 @@ alias brewup='brew update && brew doctor && brew outdated && brew upgrade && bre
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_INSECURE_REDIRECT=1
 
+# Add Sketchtool
+export PATH="/Applications/Sketch.app/Contents/Resources/sketchtool/bin:$PATH"
+
 #include Z
 . ~/z.sh
 export PATH="/usr/local/sbin:$PATH"
