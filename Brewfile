@@ -10,6 +10,7 @@ brew "zsh"
 brew "z"
 brew "rcm"
 brew "mas"
+brew "screenfetch"
 
 cask "transmission"
 cask "visual-studio-code"
