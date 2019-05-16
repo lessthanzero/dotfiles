@@ -1,5 +1,6 @@
 tap "homebrew/cask-fonts"
 tap "thoughtbot/formulae"
+brew tap "mongodb/brew"
 
 brew "p7zip"
 brew "ffmpeg"
@@ -10,6 +11,8 @@ brew "zsh"
 brew "z"
 brew "rcm"
 brew "mas"
+brew "screenfetch"
+brew "mongodb-community@4.0"
 
 cask "transmission"
 cask "visual-studio-code"
