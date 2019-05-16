@@ -250,7 +250,8 @@ if [ -z "$mac_app_login" ] ; then
 fi
 
 echo "Install Reeder."
-run mas install 880001334
+# run mas install 880001334
+run mas install 1449412482
 
 echo "Install Keynote."
 run mas install 409183694
@@ -273,11 +274,15 @@ run mas install 408981381
 echo "Install Pixelmator."
 run mas install 407963104
 
+echo "Install Pixelmator Pro."
+run mas install 1289583905
+
 echo "Install 1Password."
 run mas install 443987910
 
 echo "Install Tweetbot."
-run mas install 557168941
+# run mas install 557168941
+run mas install 1384080005
 
 echo "Install Numbers."
 run mas install 409203825
@@ -308,6 +313,9 @@ run mas install 1037126344
 
 echo "Install Day One."
 run mas install 1055511498
+
+echo "Install Day Deliveries."
+run mas install 924726344
 
 echo "Upgrade any Mac App Store applications."
 run mas upgrade
