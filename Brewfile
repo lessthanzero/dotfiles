@@ -13,6 +13,7 @@ brew "rcm"
 brew "mas"
 brew "screenfetch"
 brew "mongodb-community@4.0"
+brew "neovim"
 
 cask "transmission"
 cask "visual-studio-code"
