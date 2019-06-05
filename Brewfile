@@ -27,7 +27,6 @@ cask "iina"
 cask "font-fira-code"
 cask "wwdc"
 cask "energybar"
-<<<<<<< HEAD
 cask "karabiner-elements"
 cask "mtmr"
 cask "kawa"
