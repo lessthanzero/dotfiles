@@ -86,6 +86,9 @@ alias brewup='brew update && brew doctor && brew outdated && brew upgrade && bre
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_INSECURE_REDIRECT=1
 
+# MAS
+alias mu='mas upgrade'
+
 # Add Sketchtool
 export PATH="/Applications/Sketch.app/Contents/Resources/sketchtool/bin:$PATH"
 
