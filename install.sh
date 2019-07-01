@@ -317,6 +317,9 @@ run mas install 1055511498
 echo "Install Day Deliveries."
 run mas install 924726344
 
+echo "Install Merlin Express."
+run mas install 1202196869
+
 echo "Upgrade any Mac App Store applications."
 run mas upgrade
 
