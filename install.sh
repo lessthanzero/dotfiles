@@ -69,6 +69,9 @@ run defaults write com.apple.dock expose-animation-duration -float 0.3
 echo "Automatically hide and show the Dock."
 defaults write com.apple.dock autohide -bool true
 
+echo "Minimize apps to Dock icon"
+defaults write com.apple.dock minimize-to-application -BOOL YES
+
 echo "Save screenshots in PNG format."
 run defaults write com.apple.screencapture type -string png
 
