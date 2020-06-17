@@ -1,90 +1,85 @@
-1Password.app
-Abstract.app
+1Password 7.app
+1Password.app.zip
 Affinity Designer.app
+AirBuddy.app
 Alfred 3.app
-Alva.app
-App Store.app
-AppCleaner.app
+Alfred 4.app
+Aperture.app
 Apple Configurator 2.app
 Apple Events.app
-Automator.app
-BetterTouchTool.app
-Books.app
-Calculator.app
-Calendar.app
-Chess.app
-Contacts.app
-Dashboard.app
+Arq.app
+Backblaze.app
+Beats Updater.app
+Cardhop.app
+Coda 2.app
 Day One.app
 Deliveries.app
-Dictionary.app
 Droplr.app
-EnergyBar.app
-FaceTime.app
+DxOOpticsProForPhotos.app
 Figma.app
-Font Book.app
-Framer X.app
+Final Cut Pro.app
+Framer X Beta.app
+Framer.app
+FruitJuice.app
+Game Center.app
 GarageBand.app
 Google Chrome.app
-Home.app
 Hyper.app
 IINA.app
-Image Capture.app
 ImageOptim.app
-Karabiner-Elements.app
-Karabiner-EventViewer.app
-Kawa.app
 Keynote.app
-Launchpad.app
-MTMR.app
+Little Snitch Configuration.app
+Logic Pro X.app
+MAXON
 Mactracker.app
-Mail.app
-Maps.app
-Merlin Project Express.app
-Messages.app
-Miro - formerly RealtimeBoard.app
-Mission Control.app
-News.app
-Notes.app
+Micro Snitch.app
+Noto.app
+Now.app
 Numbers.app
 Numi.app
+OpenEmu.app
 Pages.app
-Photo Booth.app
-Photos.app
+Parallels Desktop.app
+Parallels Toolbox.app
 Pixelmator Pro.app
 Pixelmator.app
 PodcastMenu.app
-Preview.app
+Principle.app
+Private Internet Access.app
 Processing.app
-QuickTime Player.app
 Reeder.app
-Reminders.app
+Reeder.localized
+SF Symbols.app
 Safari.app
-Sip.app
-Siri.app
-Sketch Beta.app
+Screenflick.app
+Sensei.app
 Sketch.app
 Slack.app
 Slate.app
+Snap Camera.app
+Soulver 3.app
 Spotify.app
-Stickies.app
-Stocks.app
-System Preferences.app
-Telegram.app
-TextEdit.app
+SympliPlugin
+Telegram.localized
 Things3.app
-Time Machine.app
 Transmission.app
+Transmit.app
 Tunnelblick.app
-Tweetbot.app
+Tweetbot.localized
 Utilities
 Versions.app
 Visual Studio Code.app
-VoiceMemos.app
 WWDC.app
 WhatsApp.app
-Xcode.app
+balenaEtcher.app
+coconutBattery.app
+duet.app
 iA Writer.app
+iDVD.app
+iMazing.app
+iMovie 9.0
 iMovie.app
 iPhoto.app
-iTunes.app
+iTerm.app
+iWeb.app
+zoom.us.app

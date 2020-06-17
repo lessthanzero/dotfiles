@@ -1,7 +1,6 @@
 tap "homebrew/cask-fonts"
 tap "thoughtbot/formulae"
 tap "mongodb/brew"
-tap "yqrashawn/goku"
 tap "hazcod/homebrew-hazcod"
 
 brew "p7zip"
@@ -21,7 +20,6 @@ brew "maclaunch"
 
 cask "transmission"
 cask "visual-studio-code"
-cask "appcleaner"
 cask "processing"
 cask "spotify"
 cask "iina"
