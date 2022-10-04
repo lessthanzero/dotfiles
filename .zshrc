@@ -90,7 +90,7 @@ export HOMEBREW_NO_INSECURE_REDIRECT=1
 alias mu='mas upgrade'
 
 # Add Sketchtool
-export PATH="/Applications/Sketch.app/Contents/Resources/sketchtool/bin:$PATH"
+# export PATH="/Applications/Sketch.app/Contents/Resources/sketchtool/bin:$PATH"
 
 #include Z
 . ~/z.sh
