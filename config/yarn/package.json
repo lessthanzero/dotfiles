@@ -1,8 +1,8 @@
 {
     "dependencies": {
-        "trash-cli": "^1.4.0",
-        "create-react-app": "^2.0.4",
-        "gatsby-cli": "^1.1.52",
-        "nvm": "stable",
+        "trash-cli": "latest",
+        "create-react-app": "latest",
+        "gatsby-cli": "latest",
+        "nvm": "stable"
     }
 }
