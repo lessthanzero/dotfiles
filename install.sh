@@ -227,7 +227,6 @@ vscode_install_ext eg2.vscode-npm-script
 vscode_install_ext christian-kohler.npm-intellisense
 vscode_install_ext esbenp.prettier-vscode
 vscode_install_ext zhouronghui.propertylist
-vscode_install_ext tobiah.language-pde
 vscode_install_ext xabikos.reactsnippets
 vscode_install_ext qinjia.seti-icons
 vscode_install_ext shan.code-settings-sync
