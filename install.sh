@@ -79,9 +79,6 @@ echo "Save screenshots to user screenshots directory instead of desktop."
 run mkdir ~/Pictures/Screenshots
 run defaults write com.apple.screencapture location -string ~/Pictures/Screenshots
 
-echo "Disable menu transparency."
-run defaults write com.apple.universalaccess reduceTransparency -int 1
-
 echo "Disable mouse enlargement with jiggle."
 run defaults write ~/Library/Preferences/.GlobalPreferences CGDisableCursorLocationMagnification -bool true
 
@@ -159,10 +156,6 @@ echo "Tap to click anywhere"
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-
-echo "Sleep in bottom right corner"
-defaults write com.apple.dock wvous-br-corner -int 10
-defaults write com.apple.dock wvous-br-modifier -int 0
 
 echo "Automatically quit printer app once the print jobs complete"
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
@@ -252,26 +245,11 @@ if [ -z "$mac_app_login" ] ; then
     run mas signin $mac_app_login
 fi
 
-echo "Install Reeder."
-run mas install 1449412482
-
-echo "Install Keynote."
-run mas install 409183694
-
-echo "Install Things3."
-run mas install 904280696
-
 echo "Install Slack."
 run mas install 803453959
 
-echo "Install iA Writer."
-run mas install 775737590
-
 echo "Install Droplr."
 run mas install 498672703
-
-echo "Install iPhoto."
-run mas install 408981381
 
 echo "Install Pixelmator Pro."
 run mas install 1289583905
@@ -279,32 +257,14 @@ run mas install 1289583905
 echo "Install 1Password."
 run mas install 443987910
 
-echo "Install Numbers."
-run mas install 409203825
-
-echo "Install Pages."
-run mas install 409201541
-
-echo "Install Mactracker."
-run mas install 430255202
-
 echo "Install Affinity Designer."
 run mas install 824171161
 
 echo "Install Telegram."
 run mas install 747648890
 
-echo "Install GarageBand."
-run mas install 682658836
-
-echo "Install iMovie."
-run mas install 408981434
-
 echo "Install Apple Configurator 2."
 run mas install 1037126344
-
-echo "Install Day One."
-run mas install 1055511498
 
 echo "Install Deliveries."
 run mas install 924726344
