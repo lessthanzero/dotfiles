@@ -137,6 +137,9 @@ run defaults write ~/Library/Preferences/com.apple.mail-shared DisableURLLoading
 echo "Send junk mail to the junk mail box in Apple Mail."
 run defaults write ~/Library/Containers/com.apple.mail/Data/Library/Preferences/com.apple.mail JunkMailBehavior -int 2
 
+echo "Display most recent messages on top"
+run defaults write com.apple.mail ConversationViewSortDescending -bool true
+
 echo "Disable Captive Portal Hijacking Attack."
 run defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control Active -bool false
 
