@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Error handling
+set -euo pipefail
+
 # Current User
 user=$(id -un)
 
@@ -31,16 +34,18 @@ step() {
 
 run() {
     echo "${dim}▹ $@ $reset"
-    eval $@
+    # Use eval for tilde expansion and variable substitution, but with proper quoting
+    eval "$@"
 }
 
 echo ""
 headline " Let's secure your Mac and install basic applications."
 echo ""
 echo "Modifying settings for user: $user."
-# Close any open System Preferences panes, to prevent them from overriding
-# settings we’re about to change
-osascript -e 'tell application "System Preferences" to quit'
+# Close any open System Preferences/Settings panes, to prevent them from overriding
+# settings we're about to change
+osascript -e 'tell application "System Settings" to quit' 2>/dev/null || \
+osascript -e 'tell application "System Preferences" to quit' 2>/dev/null || true
 
 # Ask for the administrator password upfront
 if [ $(sudo -n uptime 2>&1|grep "load"|wc -l) -eq 0 ]
@@ -67,10 +72,10 @@ echo "Speed up mission control animations."
 run defaults write com.apple.dock expose-animation-duration -float 0.3
 
 echo "Automatically hide and show the Dock."
-defaults write com.apple.dock autohide -bool true
+run defaults write com.apple.dock autohide -bool true
 
 echo "Minimize apps to Dock icon"
-defaults write com.apple.dock minimize-to-application -BOOL YES
+run defaults write com.apple.dock minimize-to-application -bool true
 
 echo "Save screenshots in PNG format."
 run defaults write com.apple.screencapture type -string png
@@ -83,8 +88,8 @@ echo "Disable mouse enlargement with jiggle."
 run defaults write ~/Library/Preferences/.GlobalPreferences CGDisableCursorLocationMagnification -bool true
 
 echo "Set the Finder prefs for showing a few different volumes on the Desktop."
-defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+run defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+run defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
 echo "Disable the warning when changing a file extension."
 run defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
@@ -93,15 +98,15 @@ echo "Use list view in all Finder windows by default."
 run defaults write com.apple.finder FXPreferredViewStyle -string '"Nlsv"'
 
 echo "Don't write DS_Store files to network shares."
-run defaults write DSDontWriteNetworkStores com.apple.desktopservices -int 1
+run defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
 echo "Enable development menu in Safari"
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+run defaults write com.apple.Safari IncludeDevelopMenu -bool true
+run defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+run defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
 
 echo "Copy email addresses as `foo@example.com` instead of `Foo Bar <foo@example.com>` in Mail.app"
-defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
+run defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 
 # Security And Privacy Improvements
 echo "Disable Safari from auto-filling sensitive data."
@@ -129,7 +134,7 @@ echo "Disable pdf viewing in Safari."
 run defaults write ~/Library/Preferences/com.apple.Safari WebKitOmitPDFSupport -bool true
 
 echo "Hide Safari's bookmark bar."
-defaults write com.apple.Safari ShowFavoritesBar -bool false
+run defaults write com.apple.Safari ShowFavoritesBar -bool false
 
 echo "Disable loading remote content in emails in Apple Mail."
 run defaults write ~/Library/Preferences/com.apple.mail-shared DisableURLLoading -bool true
@@ -156,29 +161,29 @@ echo "Disable Bonjour multicast advertisements."
 run defaults write /Library/Preferences/com.apple.mDNSResponder.plist NoMulticastAdvertisements -bool YES
 
 echo "Tap to click anywhere"
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+run defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+run defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+run defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 echo "Automatically quit printer app once the print jobs complete"
-defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
+run defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
 echo "Expand save panel by default."
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+run defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+run defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 
 echo "Expand print panel by default."
-defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
-defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
+run defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
+run defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
 echo "Keep folders on top when sorting by name."
-defaults write com.apple.finder _FXSortFoldersFirst -bool true
+run defaults write com.apple.finder _FXSortFoldersFirst -bool true
 
 echo "Kill frozen apps"
-defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
+run defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 
 echo "Prevent Photos from opening automatically when devices are plugged in"
-defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
+run defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
 # This is disabled by default, but sometimes people turn it on and forget to turn it back off again.
 echo "Turn off remote desktop access."
@@ -201,78 +206,99 @@ run defaults write com.apple.commerce AutoUpdate -bool true
 
 # Install Applications
 
-# Note: Before installing Homebrew, set the following settings in your .bash_profile for increased privacy.
-# export HOMEBREW_NO_ANALYTICS=1
-# export HOMEBREW_NO_INSECURE_REDIRECT=1
+# Set Homebrew privacy settings before installation
+export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_NO_INSECURE_REDIRECT=1
+
 echo "Install Homebrew."
-which -s brew
-if [[ $? != 0 ]] ; then
-    run '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+if ! command -v brew &> /dev/null; then
+    # Modern Homebrew installation
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    # Add Homebrew to PATH for Apple Silicon Macs
+    if [[ -f /opt/homebrew/bin/brew ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [[ -f /usr/local/bin/brew ]]; then
+        eval "$(/usr/local/bin/brew shellenv)"
+    fi
 else
     run brew update
 fi
 
 echo '🛠  Installing Homebrew packages…'
-brew bundle
+run brew bundle
 
-testing code commit
-echo "Install Visual Studio Code Extensions."
-vscode_install_ext(){
-    run code --install-extension $@
-}
-vscode_install_ext wesbos.theme-cobalt2
-vscode_install_ext formulahendry.auto-close-tag
-vscode_install_ext dbaeumer.vscode-eslint
-vscode_install_ext eamodio.gitlens
-vscode_install_ext xabikos.javascriptsnippets
-vscode_install_ext davidanson.vscode-markdownlint
-vscode_install_ext eg2.vscode-npm-script
-vscode_install_ext christian-kohler.npm-intellisense
-vscode_install_ext esbenp.prettier-vscode
-vscode_install_ext zhouronghui.propertylist
-vscode_install_ext xabikos.reactsnippets
-vscode_install_ext qinjia.seti-icons
-vscode_install_ext shan.code-settings-sync
-vscode_install_ext ms-vscode.sublime-keybindings
-vscode_install_ext ms-vsliveshare.vsliveshare
-
-echo '🛠  Installing dotfiles…'
-rcup
-
-# Install all the Mac App Store applications using mas. https://github.com/mas-cli/mas
-mac_app_login=$(mas account | grep @)
-if [ -z "$mac_app_login" ] ; then
-    chapter "Let's install Mac App Store applications. What is your Mac App Store email login? $bold"
-    read mac_app_login
-    run mas signin $mac_app_login
+# Install VS Code extensions if code command is available
+if command -v code &> /dev/null; then
+    echo "Install Visual Studio Code Extensions."
+    vscode_install_ext(){
+        run code --install-extension "$@"
+    }
+    vscode_install_ext wesbos.theme-cobalt2
+    vscode_install_ext formulahendry.auto-close-tag
+    vscode_install_ext dbaeumer.vscode-eslint
+    vscode_install_ext eamodio.gitlens
+    vscode_install_ext xabikos.javascriptsnippets
+    vscode_install_ext davidanson.vscode-markdownlint
+    vscode_install_ext eg2.vscode-npm-script
+    vscode_install_ext christian-kohler.npm-intellisense
+    vscode_install_ext esbenp.prettier-vscode
+    vscode_install_ext zhouronghui.propertylist
+    vscode_install_ext xabikos.reactsnippets
+    vscode_install_ext qinjia.seti-icons
+    # Note: code-settings-sync is deprecated, VS Code now has built-in Settings Sync
+    vscode_install_ext ms-vscode.sublime-keybindings
+    vscode_install_ext ms-vsliveshare.vsliveshare
+else
+    echo "Warning: VS Code 'code' command not found. Install VS Code first or add to PATH."
 fi
 
-echo "Install Slack."
-run mas install 803453959
+# Install dotfiles if rcm is available
+if command -v rcup &> /dev/null; then
+    echo '🛠  Installing dotfiles…'
+    rcup
+else
+    echo "Warning: rcm not installed, skipping dotfiles installation"
+fi
 
-echo "Install Droplr."
-run mas install 498672703
+# Install all the Mac App Store applications using mas. https://github.com/mas-cli/mas
+if command -v mas &> /dev/null; then
+    mac_app_login=$(mas account 2>/dev/null | grep @ || true)
+    if [ -z "$mac_app_login" ] ; then
+        chapter "Let's install Mac App Store applications. Please sign in to the Mac App Store."
+        run mas signin
+    fi
+else
+    echo "Warning: mas-cli not installed, skipping Mac App Store applications"
+fi
 
-echo "Install Pixelmator Pro."
-run mas install 1289583905
+if command -v mas &> /dev/null; then
+    echo "Install Slack."
+    run mas install 803453959
 
-echo "Install 1Password."
-run mas install 443987910
+    echo "Install Droplr."
+    run mas install 498672703
 
-echo "Install Affinity Designer."
-run mas install 824171161
+    echo "Install Pixelmator Pro."
+    run mas install 1289583905
 
-echo "Install Telegram."
-run mas install 747648890
+    echo "Install 1Password."
+    run mas install 443987910
 
-echo "Install Apple Configurator 2."
-run mas install 1037126344
+    echo "Install Affinity Designer."
+    run mas install 824171161
 
-echo "Install Deliveries."
-run mas install 924726344
+    echo "Install Telegram."
+    run mas install 747648890
 
-echo "Upgrade any Mac App Store applications."
-run mas upgrade
+    echo "Install Apple Configurator 2."
+    run mas install 1037126344
+
+    echo "Install Deliveries."
+    run mas install 924726344
+
+    echo "Upgrade any Mac App Store applications."
+    run mas upgrade
+fi
 
 echo "Run one final check to make sure software is up to date."
 run softwareupdate -i -a
