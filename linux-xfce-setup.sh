@@ -3,6 +3,7 @@
 # Optimized for 4GB RAM, accessibility, and Russian network conditions
 # One-liner: curl -fsSL https://raw.githubusercontent.com/lessthanzero/dotfiles/master/linux-xfce-setup.sh | sudo bash
 # Or: wget -qO- https://raw.githubusercontent.com/lessthanzero/dotfiles/master/linux-xfce-setup.sh | sudo bash
+# Note: If GitHub is blocked, download the script manually and run: sudo bash linux-xfce-setup.sh
 
 set -euo pipefail
 
@@ -253,22 +254,37 @@ install_rustdesk() {
   # Download and install RustDesk
   RUSTDESK_DEB="/tmp/rustdesk.deb"
   
-  # Try to get latest version (adjust URL if needed)
+  # Try GitHub first (may be blocked in Russia)
   if curl -fsSL -o "$RUSTDESK_DEB" "https://github.com/rustdesk/rustdesk/releases/latest/download/rustdesk-1.2.3-x86_64.deb" 2>/dev/null; then
     apt-get install -y "$RUSTDESK_DEB" || {
       echo "Warning: RustDesk .deb installation failed, trying alternative method"
       rm -f "$RUSTDESK_DEB"
     }
+  else
+    echo "==> GitHub blocked/unavailable, trying alternative sources..."
+    # Try alternative: direct download from RustDesk CDN or mirror
+    # Option 1: Try using wget as fallback
+    if wget -q -O "$RUSTDESK_DEB" "https://github.com/rustdesk/rustdesk/releases/latest/download/rustdesk-1.2.3-x86_64.deb" 2>/dev/null; then
+      apt-get install -y "$RUSTDESK_DEB" || rm -f "$RUSTDESK_DEB"
+    fi
   fi
   
-  # Alternative: Install from RustDesk repo
+  # Alternative: Install from RustDesk official repo (if GitHub is blocked)
   if ! command -v rustdesk &> /dev/null; then
-    echo "==> Installing RustDesk from repository..."
-    wget -qO - https://raw.githubusercontent.com/rustdesk/rustdesk-server/master/rustdesk.sh | bash || {
-      echo "Warning: RustDesk installation failed, you can install manually later"
-      echo "Visit: https://rustdesk.com/docs/en/self-host/install/"
+    echo "==> Trying RustDesk installation from alternative source..."
+    # Try official RustDesk installation script (may use different CDN)
+    if curl -fsSL https://raw.githubusercontent.com/rustdesk/rustdesk-server/master/rustdesk.sh 2>/dev/null | bash; then
+      echo "==> RustDesk installed successfully"
+    elif wget -qO - https://raw.githubusercontent.com/rustdesk/rustdesk-server/master/rustdesk.sh 2>/dev/null | bash; then
+      echo "==> RustDesk installed successfully"
+    else
+      echo "Warning: RustDesk installation failed (GitHub may be blocked)"
+      echo "==> Manual installation options:"
+      echo "    1. Use VPN to access GitHub"
+      echo "    2. Download from: https://rustdesk.com/docs/en/self-host/install/"
+      echo "    3. Use snap: sudo snap install rustdesk"
       return 1
-    }
+    fi
   fi
   
   # Configure RustDesk for unattended access
