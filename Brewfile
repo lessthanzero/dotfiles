@@ -18,9 +18,6 @@ brew "p7zip"
 brew "ffmpeg"
 brew "yarn"
 
-# System monitoring
-brew "stats"
-
 # Editor alternatives
 brew "doom-emacs"
 
@@ -28,6 +25,8 @@ brew "doom-emacs"
 cask "balenaetcher"
 cask "iterm2"
 cask "karabiner-elements"
+cask "marta"
+cask "stats"
 cask "the-unarchiver"
 cask "thunderbird"
 
@@ -38,6 +37,7 @@ cask "docker-desktop"
 # Casks - Media & Content
 cask "blender"
 cask "flacon"
+cask "iina"
 cask "lidarr"
 cask "logseq"
 cask "obsidian"
