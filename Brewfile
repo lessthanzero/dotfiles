@@ -3,14 +3,53 @@ tap "thoughtbot/formulae"
 tap "mongodb/brew"
 tap "hazcod/homebrew-hazcod"
 
-brew "p7zip"
-brew "ffmpeg"
-brew "yarn"
+# Essential tools
+brew "git"
+brew "neovim"
+brew "micro"
 brew "zsh"
 brew "z"
 brew "rcm"
 brew "mas"
 brew "screenfetch"
 
+# Media & utilities
+brew "p7zip"
+brew "ffmpeg"
+brew "yarn"
+
+# System monitoring
+brew "stats"
+
+# Editor alternatives
+brew "doom-emacs"
+
+# Casks - System & Utilities
+cask "balenaetcher"
+cask "iterm2"
+cask "karabiner-elements"
+cask "the-unarchiver"
+cask "thunderbird"
+
+# Casks - Development
+cask "docker"
+cask "docker-desktop"
+
+# Casks - Media & Content
+cask "blender"
+cask "flacon"
+cask "lidarr"
+cask "logseq"
+cask "obsidian"
+cask "radarr"
+cask "sonarr"
+cask "soulver"
+
+# Casks - Security
+cask "metasploit"
+
+# Casks - File sharing
 cask "transmission"
+
+# Casks - Fonts
 cask "font-fira-code"

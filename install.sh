@@ -272,30 +272,71 @@ else
 fi
 
 if command -v mas &> /dev/null; then
-    echo "Install Slack."
-    run mas install 803453959
-
-    echo "Install Droplr."
-    run mas install 498672703
-
-    echo "Install Pixelmator Pro."
-    run mas install 1289583905
-
-    echo "Install 1Password."
-    run mas install 443987910
-
-    echo "Install Affinity Designer."
-    run mas install 824171161
-
-    echo "Install Telegram."
-    run mas install 747648890
-
-    echo "Install Apple Configurator 2."
-    run mas install 1037126344
-
+    echo "Installing Mac App Store applications..."
+    
+    # Productivity & Task Management
+    echo "Install Things."
+    run mas install 904280696
+    
     echo "Install Deliveries."
     run mas install 924726344
-
+    
+    # Communication
+    echo "Install Slack."
+    run mas install 803453959
+    
+    echo "Install Telegram."
+    run mas install 747648890
+    
+    # Design & Media
+    echo "Install Pixelmator Pro."
+    run mas install 1289583905
+    
+    echo "Install Affinity Designer."
+    run mas install 824171161
+    
+    echo "Install Darkroom."
+    run mas install 953286746
+    
+    echo "Install Droplr."
+    run mas install 498672703
+    
+    # Security & Utilities
+    echo "Install 1Password."
+    run mas install 443987910
+    
+    echo "Install 1Password for Safari."
+    run mas install 1569813296
+    
+    echo "Install HomePass."
+    run mas install 1330266650
+    
+    # Development
+    echo "Install Xcode."
+    run mas install 497799835
+    
+    echo "Install Playgrounds."
+    run mas install 1496833156
+    
+    # System & Reference
+    echo "Install Mactracker."
+    run mas install 430255202
+    
+    echo "Install Apple Configurator 2."
+    run mas install 1037126344
+    
+    # Media & Entertainment
+    echo "Install GarageBand."
+    run mas install 682658836
+    
+    # Reading & News
+    echo "Install Reeder."
+    run mas install 1449412482
+    
+    # Safari Extensions
+    echo "Install Grammarly for Safari."
+    run mas install 1462114288
+    
     echo "Upgrade any Mac App Store applications."
     run mas upgrade
 fi
