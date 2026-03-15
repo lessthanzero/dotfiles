@@ -1,0 +1,12 @@
+git
+github-cli
+nodejs-lts-hydrogen
+npm
+uv
+zsh
+starship
+zoxide
+chezmoi
+tmux
+btop
+obsidian
