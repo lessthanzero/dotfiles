@@ -90,13 +90,17 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Homebrew
-alias brewup='brew update && brew doctor && brew outdated && brew upgrade && brew cleanup -s --prune=1'
-export HOMEBREW_NO_ANALYTICS=1
-export HOMEBREW_NO_INSECURE_REDIRECT=1
+# Homebrew (only when installed — avoids useless aliases on Linux without brew)
+if command -v brew >/dev/null 2>&1; then
+  alias brewup='brew update && brew doctor && brew outdated && brew upgrade && brew cleanup -s --prune=1'
+  export HOMEBREW_NO_ANALYTICS=1
+  export HOMEBREW_NO_INSECURE_REDIRECT=1
+fi
 
-# MAS
-alias mu='mas upgrade'
+# Mac App Store CLI (macOS only)
+if [[ "$(uname -s)" == Darwin ]] && command -v mas >/dev/null 2>&1; then
+  alias mu='mas upgrade'
+fi
 
 # Add Sketchtool
 # export PATH="/Applications/Sketch.app/Contents/Resources/sketchtool/bin:$PATH"
@@ -110,6 +114,11 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# zoxide (directory jumping)
+if [[ -o interactive ]] && command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+fi
 
 # Starship prompt (interactive tty only)
 if [[ -o interactive ]] && [[ -t 1 ]] && command -v starship >/dev/null 2>&1; then

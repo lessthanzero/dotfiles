@@ -12,6 +12,10 @@ if [[ -t 1 ]] && command -v starship >/dev/null 2>&1; then
   eval "$(starship init bash)"
 fi
 
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init bash)"
+fi
+
 if [[ -f "${HOME}/.config/dotfiles/shell-extras.sh" ]]; then
   # shellcheck source=/dev/null
   . "${HOME}/.config/dotfiles/shell-extras.sh"

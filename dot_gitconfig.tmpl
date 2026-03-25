@@ -5,10 +5,18 @@
 [github]
   user = lessthanzero
 [credential]
+{{ if eq .chezmoi.os "darwin" }}
   helper = osxkeychain
+{{ else }}
+  helper = cache
+{{ end }}
 [core]
-  excludesfile = ~/Developer/dotfiles/gitignore
+  excludesfile = ~/.config/git/ignore
+{{ if eq .chezmoi.os "darwin" }}
   editor = code --wait
+{{ else }}
+  editor = vim
+{{ end }}
 [push]
   default = simple
   followTags = true

@@ -252,7 +252,7 @@ else
     echo "Warning: VS Code 'code' command not found. Install VS Code first or add to PATH."
 fi
 
-# Install dotfiles if rcm is available
+# Install dotfiles if rcm is available (chezmoi users: run `chezmoi apply` yourself; do not rely on rcup alone)
 if command -v rcup &> /dev/null; then
     echo '🛠  Installing dotfiles…'
     rcup

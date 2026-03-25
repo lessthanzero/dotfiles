@@ -1,5 +1,4 @@
 tap "homebrew/cask-fonts"
-tap "thoughtbot/formulae"
 
 # Core CLI (aligned with packages.txt / terminal UX; Node via nvm in shell, not duplicate brew node)
 brew "git"
@@ -16,10 +15,9 @@ brew "gh"
 brew "zoxide"
 brew "chezmoi"
 brew "btop"
-brew "z"
+brew "uv"
 brew "rcm"
 brew "mas"
-brew "screenfetch"
 
 # Media & utilities (install yarn via `corepack enable` when a project needs it, or: brew install yarn)
 brew "p7zip"

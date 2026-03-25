@@ -7,5 +7,4 @@ linux
 macos
 packages.txt
 gitignore
-config
 docs

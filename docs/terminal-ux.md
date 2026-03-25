@@ -6,9 +6,9 @@ This repo adds a small shared layer: **tmux**, **Starship**, and **interactive-o
 
 ### macOS
 
-- **Brewfile**: terminal CLIs aligned with `packages.txt` where applicable (`starship`, `tmux`, `bat`, `ripgrep`, `fd`, `eza`, `lnav`, `gh`, `zoxide`, `chezmoi`, `btop`), plus cask `font-jetbrains-mono-nerd-font` (alongside existing fonts). No duplicate `yarn`/`node` brew by default—use **nvm** (see `dot_zshrc`) and `corepack enable` when a project needs Yarn.
+- **Brewfile**: terminal CLIs aligned with `packages.txt` where applicable (`starship`, `tmux`, `bat`, `ripgrep`, `fd`, `eza`, `lnav`, `gh`, `zoxide`, `chezmoi`, `btop`, `uv`), plus cask `font-jetbrains-mono-nerd-font` (alongside existing fonts). No duplicate `yarn`/`node` brew by default—use **nvm** (see `dot_zshrc`) and `corepack enable` when a project needs Yarn.
 - **Shell**: [`dot_zshrc`](../dot_zshrc) initializes Homebrew PATH, optional Oh My Zsh, then Starship and shared extras. Put secrets in `~/.zshrc.local` (gitignored pattern).
-- **Bootstrap**: [`macos/install.sh`](../macos/install.sh) runs `brew bundle` and `rcup` when rcm is present; chezmoi users run `chezmoi apply` separately if that is your source of truth.
+- **Bootstrap**: [`macos/install.sh`](../macos/install.sh) runs `brew bundle` and optionally `rcup` when rcm is present; **chezmoi** is the canonical dotfile path—run `chezmoi apply` with this repo as your source (see [README](../README.md)).
 
 ### Arch Linux (typical laptop)
 
@@ -33,9 +33,11 @@ This repo adds a small shared layer: **tmux**, **Starship**, and **interactive-o
 - **iTerm2**: Settings → Profiles → Text → Font → select a Nerd Font.
 - Do not rely on this repo to set GUI plist defaults for fonts unless you add them yourself.
 
-## Git credential helper
+## Git config (`dot_gitconfig.tmpl`)
 
-- [`dot_gitconfig`](../dot_gitconfig) uses `osxkeychain` (macOS). On Linux, set a helper yourself if needed, e.g. `git config --global credential.helper store` or `libsecret`—not overridden here to avoid breaking macOS.
+- **Global excludes**: `core.excludesfile` points to `~/.config/git/ignore` ([`dot_config/git/ignore`](../dot_config/git/ignore)), deployed by chezmoi—portable across machines.
+- **Credential helper**: **macOS** uses `osxkeychain`; **Linux** uses `cache` by default. Override with `git config --global credential.helper store` or `libsecret` if you prefer.
+- **Editor**: **macOS** uses `code --wait`; **Linux** defaults to `vim`. Override with `git config --global core.editor …` or a local `~/.gitconfig` include.
 
 ## Verify
 
