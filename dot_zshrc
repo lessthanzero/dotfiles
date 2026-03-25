@@ -3,11 +3,8 @@ ZSH_DISABLE_COMPFIX="true"
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
+# Empty theme so Starship can own the prompt (see below).
+ZSH_THEME=""
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -54,7 +51,19 @@ plugins=(git extract node npm)
 export PATH="$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
-source $ZSH/oh-my-zsh.sh
+# Homebrew (macOS / Linuxbrew): keep PATH so CLI tools from brew resolve
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
+if [[ -f "$ZSH/oh-my-zsh.sh" ]]; then
+  source "$ZSH/oh-my-zsh.sh"
+else
+  # Minimal zsh without Oh My Zsh (e.g. fresh Linux server)
+  autoload -Uz compinit && compinit
+fi
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -101,4 +110,17 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export HOMEBREW_GITHUB_API_TOKEN=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
+
+# Starship prompt (interactive tty only)
+if [[ -o interactive ]] && [[ -t 1 ]] && command -v starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+fi
+
+# Shared interactive aliases (bat/rg/fd/eza); safe for scripts when sourced only from here
+if [[ -f "${HOME}/.config/dotfiles/shell-extras.sh" ]]; then
+  # shellcheck source=/dev/null
+  . "${HOME}/.config/dotfiles/shell-extras.sh"
+fi
+
+# Secrets and local overrides (not in git): e.g. HOMEBREW_GITHUB_API_TOKEN
+[[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"

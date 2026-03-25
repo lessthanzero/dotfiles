@@ -1,0 +1,20 @@
+# ~/.bashrc — interactive sessions (e.g. Linux Mint default shell)
+case $- in *i*) ;; *) return ;; esac
+
+# Homebrew (macOS / Linuxbrew)
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
+if [[ -t 1 ]] && command -v starship >/dev/null 2>&1; then
+  eval "$(starship init bash)"
+fi
+
+if [[ -f "${HOME}/.config/dotfiles/shell-extras.sh" ]]; then
+  # shellcheck source=/dev/null
+  . "${HOME}/.config/dotfiles/shell-extras.sh"
+fi
+
+[[ -f "${HOME}/.bashrc.local" ]] && . "${HOME}/.bashrc.local"

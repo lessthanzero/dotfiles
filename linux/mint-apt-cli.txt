@@ -1,0 +1,16 @@
+# Linux Mint / Debian-family: CLI packages aligned with this repo’s terminal UX layer.
+# Package names follow apt; adjust if your Mint/Ubuntu release differs.
+#
+# One-shot install (review first):
+#   sudo apt update
+#   sudo apt install -y \
+#     tmux bat ripgrep fd-find eza lnav starship zsh
+#
+# Notes:
+# - `bat` installs the binary as `batcat` on Debian/Ubuntu; ~/.config/dotfiles/shell-extras.sh aliases `cat` accordingly.
+# - `fd-find` provides `fdfind`; shell-extras aliases `fd` -> `fdfind` when `fd` is not present.
+# - `eza` may require a PPA or backports on older releases; if absent, omit eza (aliases apply only when `eza` exists).
+# - `starship` may be in universe or need manual install from upstream if not in repos.
+#
+# Optional: set zsh as default after installing zsh:
+#   chsh -s "$(command -v zsh)"

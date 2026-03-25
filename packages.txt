@@ -8,5 +8,10 @@ starship
 zoxide
 chezmoi
 tmux
+bat
+ripgrep
+fd
+eza
+lnav
 btop
 obsidian
