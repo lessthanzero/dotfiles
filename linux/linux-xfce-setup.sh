@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
+#
+# WARNING: Parents / XFCE / low-RAM laptop only. Sets hostname, swap, locales, firewall, remote
+# tools, etc. Do NOT run on your personal dev machine unless you intend that.
+#
 # Ubuntu XFCE setup script for parents' laptop (2020/2022 Ubuntu)
 # Optimized for 4GB RAM, accessibility, and Russian network conditions
-# One-liner: curl -fsSL https://raw.githubusercontent.com/lessthanzero/dotfiles/master/linux-xfce-setup.sh | sudo bash
-# Or: wget -qO- https://raw.githubusercontent.com/lessthanzero/dotfiles/master/linux-xfce-setup.sh | sudo bash
-# Note: If GitHub is blocked, download the script manually and run: sudo bash linux-xfce-setup.sh
+#
+# One-liner (path must include linux/):
+#   curl -fsSL https://raw.githubusercontent.com/lessthanzero/dotfiles/master/linux/linux-xfce-setup.sh | sudo bash
+# Or: wget -qO- https://raw.githubusercontent.com/lessthanzero/dotfiles/master/linux/linux-xfce-setup.sh | sudo bash
+# Note: If GitHub is blocked, download the script manually and run: sudo bash linux/linux-xfce-setup.sh
 
 set -euo pipefail
 

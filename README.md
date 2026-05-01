@@ -32,7 +32,22 @@ Later, refresh from git: `chezmoi update && chezmoi apply`, or `git pull` inside
 |----------|------------------------|----------|
 | **macOS** | [`Brewfile`](Brewfile) via `brew bundle` (optional: [`macos/install.sh`](macos/install.sh)) | `chezmoi apply` (same `dot_*` as everywhere) |
 | **Arch (typical laptop)** | [`packages.txt`](packages.txt) + [`arch/bootstrap.sh`](arch/bootstrap.sh) (`pacman` + `chezmoi apply`) | `chezmoi apply` |
-| **Linux Mint / Debian** | APT: see [`linux/mint-apt-cli.txt`](linux/mint-apt-cli.txt) | `chezmoi apply`; bash → [`dot_bashrc`](dot_bashrc), zsh → [`dot_zshrc`](dot_zshrc) |
+| **Linux Mint / Debian** | [`linux/bootstrap-cli.sh`](linux/bootstrap-cli.sh) (APT + chezmoi/uv/starship installers); package list: [`linux/mint-apt-cli.txt`](linux/mint-apt-cli.txt) | `chezmoi apply`; bash → [`dot_bashrc`](dot_bashrc), zsh → [`dot_zshrc`](dot_zshrc) |
 | **Steam Deck / SteamOS** | **Do not** run [`arch/bootstrap.sh`](arch/bootstrap.sh) as a full Arch script; install CLIs via distrobox/flatpak if needed | `chezmoi apply` for user-level configs only |
 
 Details, verification, and caveats: [docs/terminal-ux.md](docs/terminal-ux.md).
+
+### Zsh: Oh My Zsh + Powerlevel10k (Tokyo Night)
+
+Chezmoi installs [`dot_p10k.zsh`](dot_p10k.zsh) as `~/.p10k.zsh`. Install [Oh My Zsh](https://ohmyz.sh/) first, then the theme:
+
+```bash
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
+  "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+```
+
+[`arch/bootstrap.sh`](arch/bootstrap.sh) clones Powerlevel10k into `~/.oh-my-zsh/custom/themes` when you run it. [`linux/bootstrap-cli.sh`](linux/bootstrap-cli.sh) prints the same hint after installing APT packages.
+
+Use a [Nerd Font](https://www.nerdfonts.com/) in your terminal (e.g. **JetBrains Mono Nerd** — macOS: `brew bundle` / [`Brewfile`](Brewfile) cask; Mint: `apt install fonts-jetbrains-mono` plus Nerd patch or upstream nerd-fonts release).
+
+**Bash** still uses [Starship](https://starship.rs/) with the Tokyo Night preset ([`dot_config/starship.toml`](dot_config/starship.toml)); install Starship via [`linux/bootstrap-cli.sh`](linux/bootstrap-cli.sh) or your package manager.

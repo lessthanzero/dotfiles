@@ -1,16 +1,23 @@
-# Linux Mint / Debian-family: CLI packages aligned with this repo’s terminal UX layer.
-# Package names follow apt; adjust if your Mint/Ubuntu release differs.
+# Linux Mint / Ubuntu / Debian — APT CLI packages aligned with ../packages.txt (minus node/npm/uv/chezmoi/starship/obsidian).
 #
-# One-shot install (review first):
-#   sudo apt update
-#   sudo apt install -y \
-#     tmux bat ripgrep fd-find eza lnav starship zsh
+# Node: prefer nvm (~/.zshrc); system node is optional.
+# Obsidian: Flatpak (see run_once_install_flatpaks.sh) or upstream; Arch uses pacman.
 #
-# Notes:
-# - `bat` installs the binary as `batcat` on Debian/Ubuntu; ~/.config/dotfiles/shell-extras.sh aliases `cat` accordingly.
-# - `fd-find` provides `fdfind`; shell-extras aliases `fd` -> `fdfind` when `fd` is not present.
-# - `eza` may require a PPA or backports on older releases; if absent, omit eza (aliases apply only when `eza` exists).
-# - `starship` may be in universe or need manual install from upstream if not in repos.
+# One-shot (matches bootstrap-cli.sh APT set):
+#   sudo apt-get update
+#   sudo apt-get install -y \
+#     git curl wget zsh tmux bat ripgrep fd-find eza lnav zoxide btop gh
 #
-# Optional: set zsh as default after installing zsh:
+# Debian/Ubuntu naming notes (handled by ~/.config/dotfiles/shell-extras.sh):
+#   - bat → binary often `batcat`; aliases map `cat` when appropriate.
+#   - fd-find → provides `fdfind`; aliases map `fd` when `fd` is absent.
+#
+# Not in default APT on many releases — install separately:
+#   chezmoi:   curl -fsSL https://chezmoi.io/get | bash -s -- -b ~/.local/bin
+#   uv:        curl -LsSf https://astral.sh/uv/install.sh | sh
+#   starship:  curl -fsSL https://starship.rs/install.sh | sh -s -- -y -b ~/.local/bin   # bash only; zsh uses Powerlevel10k
+#
+# Full automation: bash linux/bootstrap-cli.sh
+#
+# Optional default shell:
 #   chsh -s "$(command -v zsh)"
