@@ -248,8 +248,15 @@ if command -v code &> /dev/null; then
     # Note: code-settings-sync is deprecated, VS Code now has built-in Settings Sync
     vscode_install_ext ms-vscode.sublime-keybindings
     vscode_install_ext ms-vsliveshare.vsliveshare
+    vscode_install_ext enkia.tokyo-night
 else
     echo "Warning: VS Code 'code' command not found. Install VS Code first or add to PATH."
+fi
+
+# Cursor: same Tokyo Night theme extension as dotfiles Cursor settings (Chezmoi)
+if command -v cursor &> /dev/null; then
+    echo "Install Cursor extension (Tokyo Night)."
+    run cursor --install-extension enkia.tokyo-night
 fi
 
 # Install dotfiles if rcm is available (chezmoi users: run `chezmoi apply` yourself; do not rely on rcup alone)
