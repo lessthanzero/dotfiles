@@ -4,7 +4,7 @@ Heavily based on Anton Vasin's [dotfiles repo](https://github.com/antonvasin/dot
 
 ## How dotfiles are applied
 
-**Chezmoi** is the canonical path: `dot_*` files in this repo render to `~` (e.g. `dot_zshrc` → `~/.zshrc`). Run `chezmoi init` / `chezmoi apply` with this repo as your source.
+**Chezmoi** is the canonical path: `dot_*` files in this repo render to `~` (e.g. `dot_zshrc` → `~/.zshrc`). Run `chezmoi init` / `chezmoi apply` with this repo as your source. Shared snippets used by multiple targets live under `.chezmoi/templates/` (for example Cursor user settings pulled in by `settings.json.tmpl`).
 
 ### First-time chezmoi (new machine)
 

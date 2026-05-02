@@ -83,7 +83,7 @@ Powerlevel10k and Starship icons use **Nerd Font** codepoints. If the terminal�
 
 - **xfce4-terminal** (XFCE / Mint): **Edit → Preferences → your profile → Font** → **JetBrainsMono Nerd Font** (pick size, e.g. 13). Alternatively (applies to default profile):  
   `xfconf-query -c xfce4-terminal -p /font-name -s "JetBrainsMono Nerd Font 13"`
-- **Cursor / VS Code**: the **integrated terminal does not** use the GUI terminal’s font. Set in **Settings** (JSON):  
+- **Cursor / VS Code**: the **integrated terminal does not** use the GUI terminal’s font. **Chezmoi** installs Cursor user settings (Tokyo Night + **JetBrainsMono Nerd Font** for editor + integrated terminal). The JSON lives once in [`.chezmoi/templates/cursor-user-settings.json`](../.chezmoi/templates/cursor-user-settings.json); Linux and macOS each use a small [`settings.json.tmpl`](../dot_config/Cursor/User/settings.json.tmpl) under [`dot_config/Cursor/User/`](../dot_config/Cursor/User/) or [`Library/Application Support/Cursor/User/`](../Library/Application%20Support/Cursor/User/) (see [`.chezmoiignore`](../.chezmoiignore) for OS-specific apply). Install the theme extension once: `cursor --install-extension enkia.tokyo-night` (or via Extensions). You can still override in **Settings** (JSON), e.g.  
   `"terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font', monospace"`
 - **Kitty / Tilix / GNOME Terminal**: same idea — choose the **Nerd Font** family in that app’s font preferences.
 
