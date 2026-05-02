@@ -1,0 +1,5 @@
+arc-gtk-theme
+papirus-icon-theme
+bibata-cursor-theme
+thunar-archive-plugin
+qt5ct

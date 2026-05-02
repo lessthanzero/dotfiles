@@ -40,6 +40,18 @@ Shared pieces: **tmux**, **interactive-only** aliases (bat/rg/fd/eza) via [`dot_
 - **Shell**: **bash** → [`dot_bashrc`](../dot_bashrc) (Starship Tokyo Night preset). **zsh** → [`dot_zshrc`](../dot_zshrc) + **Powerlevel10k**. Both source `shell-extras.sh` only in interactive mode.
 - If you rely on a stock Mint/Ubuntu `~/.bashrc` (e.g. `command-not-found`), merge the blocks from `dot_bashrc` or use `chezmoi merge`.
 
+### XFCE (Linux Mint / Ubuntu XFCE), optional
+
+Lean desktop polish (theme/icons/cursor, Qt via **qt5ct**, Thunar archive integration, Super+arrow tiling keys)—does **not** change GTK fonts or install Kitty.
+
+- **Script**: [`linux/xfce-ux-mint.sh`](../linux/xfce-ux-mint.sh) — run inside a graphical session (`DISPLAY` set). Installs APT packages from [`linux/mint-apt-xfce-ux.txt`](../linux/mint-apt-xfce-ux.txt), then applies xfconf (Arc-Dark / Papirus / Bibata cursor, `tile_on_move`, xfwm4 `/xfwm4/custom/` shortcuts). Flags: `--apt-only`, `--xfconf-only`.
+- **Arch (same ideas, manual)**: [`linux/arch-pkg-xfce-ux.txt`](../linux/arch-pkg-xfce-ux.txt) — `sudo pacman -S --needed - < linux/arch-pkg-xfce-ux.txt` (not wired into [`arch/bootstrap.sh`](../arch/bootstrap.sh)).
+- **Chezmoi**: [`dot_config/environment.d/10-qt-theme.conf`](../dot_config/environment.d/10-qt-theme.conf) sets `QT_QPA_PLATFORMTHEME=qt5ct`. Install **qt6ct** and switch that variable to `qt6ct` if you rely on Qt6 apps without qt5ct compatibility. Run **qt5ct** once after install.
+- **Thunar**: [`dot_config/Thunar/uca.xml`](../dot_config/Thunar/uca.xml) adds “Open Terminal Here” (`xfce4-terminal`). If you already use custom actions, merge carefully or back up `~/.config/Thunar/uca.xml` before `chezmoi apply`.
+- **Super vs Whisker**: On X11, binding **Whisker Menu to Super alone** can prevent **Super+arrow** shortcuts from reaching xfwm4. Prefer Whisker on **Super+Space** or similar if tiling keys do nothing.
+- **Super+Right only broken**: Mint’s default **Super+r** (`xfce4-appfinder -c`) must be fully overridden—an empty custom shortcut can still leave the **default** active. The script sets `/commands/custom/<Super>r` to **`/usr/bin/true`**, clears `/commands/default/<Super>r`, and binds **Super+Page Down** to `xfce4-appfinder -c`. **Alt+F3** still opens the full app finder.
+- **macOS parity**: No XFCE automation—terminal/font story stays **iTerm2** + Nerd Font from [`Brewfile`](../Brewfile); this block is Linux-only.
+
 ### Steam Deck / SteamOS
 
 - **Do not** run [`arch/bootstrap.sh`](../arch/bootstrap.sh) blindly: SteamOS is not a generic Arch laptop; root may be immutable and updates are SteamOS-managed.
@@ -48,9 +60,34 @@ Shared pieces: **tmux**, **interactive-only** aliases (bat/rg/fd/eza) via [`dot_
 
 ## Fonts (JetBrains Mono + Nerd)
 
-- **macOS**: `font-jetbrains-mono-nerd-font` in [`Brewfile`](../Brewfile); **iTerm2**: Settings → Profiles → Text → select the Nerd Font.
-- **Linux Mint / Debian**: `sudo apt install fonts-jetbrains-mono` for the base family; for **Nerd** glyphs (Powerlevel10k / Starship icons), install a [Nerd Font](https://www.nerdfonts.com/font-downloads) build of JetBrains Mono and select it in your terminal (GNOME Terminal, Tilix, Kitty, etc.).
-- This repo does not set GUI font keys for every desktop; pick the font in the terminal profile once.
+Powerlevel10k and Starship icons use **Nerd Font** codepoints. If the terminal’s font is not a Nerd-patched face, you get **empty boxes** or missing glyphs in the prompt.
+
+- **macOS**: Cask `font-jetbrains-mono-nerd-font` in [`Brewfile`](../Brewfile). In **iTerm2**: Settings → Profiles → Text → **Font** → choose **JetBrainsMono Nerd Font** (or **NF**).
+- **Linux — apt alone is not enough**: `sudo apt install fonts-jetbrains-mono` installs the **upstream** JetBrains Mono family from Google, **without** Nerd icons. For glyphs you need a **Nerd Fonts** build.
+
+### Linux: install JetBrains Mono Nerd (user fonts, no root)
+
+1. Download **`JetBrainsMono.zip`** from [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases) (same family used elsewhere in this repo).
+2. Install into your user font directory and refresh the cache:
+
+   ```bash
+   mkdir -p ~/.local/share/fonts/JetBrainsMono
+   unzip -q JetBrainsMono.zip -d /tmp/jbm
+   find /tmp/jbm -name '*.ttf' -exec cp -t ~/.local/share/fonts/JetBrainsMono {} +
+   fc-cache -fv ~/.local/share/fonts
+   ```
+
+3. Confirm Fontconfig sees it: `fc-list | grep -i 'JetBrainsMono.*Nerd Font'` — you should see **`JetBrainsMono Nerd Font`** / **`JetBrainsMono NF`**.
+
+### Point terminals at the Nerd Font
+
+- **xfce4-terminal** (XFCE / Mint): **Edit → Preferences → your profile → Font** → **JetBrainsMono Nerd Font** (pick size, e.g. 13). Alternatively (applies to default profile):  
+  `xfconf-query -c xfce4-terminal -p /font-name -s "JetBrainsMono Nerd Font 13"`
+- **Cursor / VS Code**: the **integrated terminal does not** use the GUI terminal’s font. Set in **Settings** (JSON):  
+  `"terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font', monospace"`
+- **Kitty / Tilix / GNOME Terminal**: same idea — choose the **Nerd Font** family in that app’s font preferences.
+
+This repo does not ship the binary font files (copyright/size); install once per machine and select the face above.
 
 ## Git config (`dot_gitconfig.tmpl`)
 
@@ -66,6 +103,7 @@ Shared pieces: **tmux**, **interactive-only** aliases (bat/rg/fd/eza) via [`dot_
 4. **Non-interactive**: `zsh -c 'alias cat'` should not define `cat` from extras (extras returns early when `$-` has no `i`).
 5. **tmux**: `tmux` → `Ctrl-b` then `|` / `-` for splits, `r` reloads config.
 6. **macOS**: `brew bundle check` after editing Brewfile.
+7. **Nerd Font (Linux / Cursor)**: `fc-list | grep -i 'JetBrainsMono.*Nerd Font'`; integrated terminal shows icons only after **`terminal.integrated.fontFamily`** (Cursor/VS Code) matches the installed Nerd face.
 
 ## Manual steps that may remain
 

@@ -33,6 +33,7 @@ Later, refresh from git: `chezmoi update && chezmoi apply`, or `git pull` inside
 | **macOS** | [`Brewfile`](Brewfile) via `brew bundle` (optional: [`macos/install.sh`](macos/install.sh)) | `chezmoi apply` (same `dot_*` as everywhere) |
 | **Arch (typical laptop)** | [`packages.txt`](packages.txt) + [`arch/bootstrap.sh`](arch/bootstrap.sh) (`pacman` + `chezmoi apply`) | `chezmoi apply` |
 | **Linux Mint / Debian** | [`linux/bootstrap-cli.sh`](linux/bootstrap-cli.sh) (APT + chezmoi/uv/starship installers); package list: [`linux/mint-apt-cli.txt`](linux/mint-apt-cli.txt) | `chezmoi apply`; bash → [`dot_bashrc`](dot_bashrc), zsh → [`dot_zshrc`](dot_zshrc) |
+| **XFCE UX (optional)** | Mint/Ubuntu: [`linux/xfce-ux-mint.sh`](linux/xfce-ux-mint.sh) + [`linux/mint-apt-xfce-ux.txt`](linux/mint-apt-xfce-ux.txt). Arch (manual): [`linux/arch-pkg-xfce-ux.txt`](linux/arch-pkg-xfce-ux.txt) | Same `chezmoi apply` — adds `~/.config/environment.d/` (Qt) and Thunar custom action |
 | **Steam Deck / SteamOS** | **Do not** run [`arch/bootstrap.sh`](arch/bootstrap.sh) as a full Arch script; install CLIs via distrobox/flatpak if needed | `chezmoi apply` for user-level configs only |
 
 Details, verification, and caveats: [docs/terminal-ux.md](docs/terminal-ux.md).
@@ -48,6 +49,6 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
 
 [`arch/bootstrap.sh`](arch/bootstrap.sh) clones Powerlevel10k into `~/.oh-my-zsh/custom/themes` when you run it. [`linux/bootstrap-cli.sh`](linux/bootstrap-cli.sh) prints the same hint after installing APT packages.
 
-Use a [Nerd Font](https://www.nerdfonts.com/) in your terminal (e.g. **JetBrains Mono Nerd** — macOS: `brew bundle` / [`Brewfile`](Brewfile) cask; Mint: `apt install fonts-jetbrains-mono` plus Nerd patch or upstream nerd-fonts release).
+Use a [Nerd Font](https://www.nerdfonts.com/) in your terminal (e.g. **JetBrains Mono Nerd** — macOS: [`Brewfile`](Brewfile) cask `font-jetbrains-mono-nerd-font`; Linux: install from [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases) and set the font in **xfce4-terminal**, **Cursor**, etc. — full steps in [`docs/terminal-ux.md`](docs/terminal-ux.md) under **Fonts (JetBrains Mono + Nerd)**).
 
 **Bash** still uses [Starship](https://starship.rs/) with the Tokyo Night preset ([`dot_config/starship.toml`](dot_config/starship.toml)); install Starship via [`linux/bootstrap-cli.sh`](linux/bootstrap-cli.sh) or your package manager.
