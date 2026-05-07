@@ -12,6 +12,7 @@ APT_PACKAGES=(
   wget
   zsh
   tmux
+  kitty
   bat
   ripgrep
   fd-find

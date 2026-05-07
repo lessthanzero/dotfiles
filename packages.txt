@@ -7,6 +7,7 @@ zsh
 zoxide
 chezmoi
 tmux
+kitty
 bat
 ripgrep
 fd

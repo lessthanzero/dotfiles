@@ -49,6 +49,6 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
 
 [`arch/bootstrap.sh`](arch/bootstrap.sh) clones Powerlevel10k into `~/.oh-my-zsh/custom/themes` when you run it. [`linux/bootstrap-cli.sh`](linux/bootstrap-cli.sh) prints the same hint after installing APT packages.
 
-Use a [Nerd Font](https://www.nerdfonts.com/) in your terminal (e.g. **JetBrains Mono Nerd** — macOS: [`Brewfile`](Brewfile) cask `font-jetbrains-mono-nerd-font`; Linux: install from [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases) and set the font in **xfce4-terminal**, **Cursor**, etc. — full steps in [`docs/terminal-ux.md`](docs/terminal-ux.md) under **Fonts (JetBrains Mono + Nerd)**).
+Use a [Nerd Font](https://www.nerdfonts.com/) in your terminal (e.g. **JetBrains Mono Nerd** — macOS: [`Brewfile`](Brewfile) cask `font-jetbrains-mono-nerd-font`; Linux: install from [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases) and set the font in **xfce4-terminal**, **[Kitty](https://sw.kovidgoyal.net/kitty/)** (on Arch/Mint via [`packages.txt`](packages.txt) / [`linux/bootstrap-cli.sh`](linux/bootstrap-cli.sh)), **Cursor**, etc. — full steps in [`docs/terminal-ux.md`](docs/terminal-ux.md) under **Fonts (JetBrains Mono + Nerd)**).
 
 **Bash** still uses [Starship](https://starship.rs/) with the Tokyo Night preset ([`dot_config/starship.toml`](dot_config/starship.toml)); install Starship via [`linux/bootstrap-cli.sh`](linux/bootstrap-cli.sh) or your package manager.

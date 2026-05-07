@@ -6,7 +6,7 @@
 # One-shot (matches bootstrap-cli.sh APT set):
 #   sudo apt-get update
 #   sudo apt-get install -y \
-#     git curl wget zsh tmux bat ripgrep fd-find eza lnav zoxide btop gh
+#     git curl wget zsh tmux kitty bat ripgrep fd-find eza lnav zoxide btop gh
 #
 # Debian/Ubuntu naming notes (handled by ~/.config/dotfiles/shell-extras.sh):
 #   - bat → binary often `batcat`; aliases map `cat` when appropriate.

@@ -1,6 +1,6 @@
 # Terminal UX layer
 
-Shared pieces: **tmux**, **interactive-only** aliases (bat/rg/fd/eza) via [`dot_config/dotfiles/shell-extras.sh`](../dot_config/dotfiles/shell-extras.sh), **zsh + Oh My Zsh + Powerlevel10k** ([`dot_zshrc`](../dot_zshrc), [`dot_p10k.zsh`](../dot_p10k.zsh)), and **Starship** only for **bash** ([`dot_bashrc`](../dot_bashrc), [`dot_config/starship.toml`](../dot_config/starship.toml)). Dotfiles apply with **chezmoi** (`dot_*` → `$HOME`).
+Shared pieces: **tmux**, **Kitty** (optional terminal on Arch/Mint via package lists), **interactive-only** aliases (bat/rg/fd/eza) via [`dot_config/dotfiles/shell-extras.sh`](../dot_config/dotfiles/shell-extras.sh), **zsh + Oh My Zsh + Powerlevel10k** ([`dot_zshrc`](../dot_zshrc), [`dot_p10k.zsh`](../dot_p10k.zsh)), and **Starship** only for **bash** ([`dot_bashrc`](../dot_bashrc), [`dot_config/starship.toml`](../dot_config/starship.toml)). Dotfiles apply with **chezmoi** (`dot_*` → `$HOME`).
 
 ## Capability matrix (Arch vs Mint vs installers)
 
@@ -14,6 +14,7 @@ Shared pieces: **tmux**, **interactive-only** aliases (bat/rg/fd/eza) via [`dot_
 | Navigation | `zoxide` | `zoxide` | — |
 | Monitor | `btop` | `btop` | — |
 | Multiplexer | `tmux` | `tmux` | — |
+| Terminal (Kitty) | `kitty` | `kitty` | — |
 | Dotfile manager | `chezmoi` | — | official install ([bootstrap-cli](../linux/bootstrap-cli.sh)) |
 | Python tooling | `uv` | — | Astral install script |
 | Obsidian | `obsidian` (pacman) | Flatpak ([`run_once_install_flatpaks.sh`](../linux/run_once_install_flatpaks.sh)) | intentional difference |
@@ -30,7 +31,7 @@ Shared pieces: **tmux**, **interactive-only** aliases (bat/rg/fd/eza) via [`dot_
 
 ### Arch Linux (typical laptop)
 
-- **packages.txt**: `bat`, `ripgrep`, `fd`, `eza`, `lnav`, etc. via [`arch/bootstrap.sh`](../arch/bootstrap.sh) (`pacman`). **Starship** is not installed here (zsh uses p10k).
+- **packages.txt**: `kitty`, `bat`, `ripgrep`, `fd`, `eza`, `lnav`, etc. via [`arch/bootstrap.sh`](../arch/bootstrap.sh) (`pacman`). **Starship** is not installed here (zsh uses p10k).
 - [`arch/bootstrap.sh`](../arch/bootstrap.sh) clones Powerlevel10k into `~/.oh-my-zsh/custom/themes` and runs `chezmoi apply`.
 
 ### Linux Mint / Debian-family
@@ -39,10 +40,11 @@ Shared pieces: **tmux**, **interactive-only** aliases (bat/rg/fd/eza) via [`dot_
 - **APT list**: [`linux/mint-apt-cli.txt`](../linux/mint-apt-cli.txt) — same packages as copy-paste reference.
 - **Shell**: **bash** → [`dot_bashrc`](../dot_bashrc) (Starship Tokyo Night preset). **zsh** → [`dot_zshrc`](../dot_zshrc) + **Powerlevel10k**. Both source `shell-extras.sh` only in interactive mode.
 - If you rely on a stock Mint/Ubuntu `~/.bashrc` (e.g. `command-not-found`), merge the blocks from `dot_bashrc` or use `chezmoi merge`.
+- **Autostart / stalling login**: entries under `~/.config/autostart/` that point to missing AppImages, moved paths, or broken `Exec=` lines (VPN clients like Outline, cloud sync, etc.) can hang or slow the session and flood logs. Inspect with `ls ~/.config/autostart/`, open each `.desktop` file, and remove or fix stale entries. Paths with spaces or non-ASCII directory names are easy to break—quote `Exec=` correctly or use wrappers.
 
 ### XFCE (Linux Mint / Ubuntu XFCE), optional
 
-Lean desktop polish (theme/icons/cursor, Qt via **qt5ct**, Thunar archive integration, Super+arrow tiling keys)—does **not** change GTK fonts or install Kitty.
+Lean desktop polish (theme/icons/cursor, Qt via **qt5ct**, Thunar archive integration, Super+arrow tiling keys)—does **not** change GTK fonts. **[Kitty](https://sw.kovidgoyal.net/kitty/)** is installed via the CLI package lists ([`packages.txt`](../packages.txt), [`mint-apt-cli.txt`](../linux/mint-apt-cli.txt)); this script does not configure it.
 
 - **Script**: [`linux/xfce-ux-mint.sh`](../linux/xfce-ux-mint.sh) — run inside a graphical session (`DISPLAY` set). Installs APT packages from [`linux/mint-apt-xfce-ux.txt`](../linux/mint-apt-xfce-ux.txt), then applies xfconf (Arc-Dark / Papirus / Bibata cursor, `tile_on_move`, xfwm4 `/xfwm4/custom/` shortcuts). Flags: `--apt-only`, `--xfconf-only`.
 - **Arch (same ideas, manual)**: [`linux/arch-pkg-xfce-ux.txt`](../linux/arch-pkg-xfce-ux.txt) — `sudo pacman -S --needed - < linux/arch-pkg-xfce-ux.txt` (not wired into [`arch/bootstrap.sh`](../arch/bootstrap.sh)).
