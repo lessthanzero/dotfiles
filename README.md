@@ -24,7 +24,7 @@ Later, refresh from git: `chezmoi update && chezmoi apply`, or `git pull` inside
 
 **rcm** ([thoughtbot/rcm](https://github.com/thoughtbot/rcm)) is optional legacy tooling: `rcup` only if you use an rcm layout. If you use chezmoi, you do not need `rcup`.
 
-[`macos/install.sh`](macos/install.sh) runs `brew bundle` and may run `rcup` when `rcm` is installed; **chezmoi users** should run **`chezmoi apply`** separately after pointing chezmoi at this repo.
+[`macos/install.sh`](macos/install.sh) runs `brew bundle`, Oh My Zsh + Powerlevel10k ([`scripts/install-omz-p10k.sh`](scripts/install-omz-p10k.sh)), and may run `rcup` when `rcm` is installed; **chezmoi users** should run **`chezmoi apply`** separately after pointing chezmoi at this repo.
 
 ### By platform
 
@@ -48,6 +48,14 @@ Details, verification, and caveats: [docs/terminal-ux.md](docs/terminal-ux.md).
 | [`linux/verify.sh`](linux/verify.sh) | Post-setup sanity checks |
 | [`linux/bootstrap-cli.sh`](linux/bootstrap-cli.sh) | APT CLI only (called by `bootstrap.sh`) |
 | [`linux/linux-xfce-setup.sh`](linux/linux-xfce-setup.sh) | **Parents laptop only** — hostname, swap, VPN, etc. Do not run on dev machines |
+
+### macOS scripts
+
+| Script | Use on |
+|--------|--------|
+| [`macos/install.sh`](macos/install.sh) | Full Mac bootstrap — Homebrew, OMZ + p10k, system defaults, MAS apps |
+| [`macos/verify.sh`](macos/verify.sh) | Post-setup sanity checks |
+| [`scripts/install-omz-p10k.sh`](scripts/install-omz-p10k.sh) | Shared Oh My Zsh + Powerlevel10k install (called by macOS and Linux bootstrap) |
 
 ### Zsh: Oh My Zsh + Powerlevel10k (Tokyo Night)
 

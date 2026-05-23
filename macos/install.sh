@@ -227,6 +227,10 @@ fi
 echo '🛠  Installing Homebrew packages…'
 run brew bundle
 
+MACOS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+echo '🛠  Installing Oh My Zsh + Powerlevel10k…'
+bash "${MACOS_DIR}/../scripts/install-omz-p10k.sh"
+
 # Install VS Code extensions if code command is available
 if command -v code &> /dev/null; then
     echo "Install Visual Studio Code Extensions."
@@ -264,7 +268,7 @@ if command -v rcup &> /dev/null; then
     echo '🛠  Installing dotfiles…'
     rcup
 else
-    echo "Warning: rcm not installed, skipping dotfiles installation"
+    echo "Note: chezmoi is the canonical dotfile path — run chezmoi apply after this script (see next steps below)."
 fi
 
 # Install all the Mac App Store applications using mas. https://github.com/mas-cli/mas
@@ -354,6 +358,13 @@ run softwareupdate -i -a
 run killall Dock
 run killall Finder
 run killall SystemUIServer
+
+echo ""
+echo "Bootstrap complete. Next:"
+echo "  1. chezmoi init --apply https://github.com/lessthanzero/dotfiles.git   # or: chezmoi apply"
+echo "  2. bash macos/verify.sh"
+echo "  3. iTerm2 → Settings → Profiles → Text → JetBrainsMono Nerd Font"
+echo "  4. Optional: chsh -s \"\$(command -v zsh)\""
 
 chapter "Some settings will not take effect until you restart your computer."
 headline " Your Mac is setup and ready!"

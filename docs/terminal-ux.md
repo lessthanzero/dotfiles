@@ -27,7 +27,7 @@ Shared pieces: **tmux**, **Kitty** (default terminal on Linux Mint/XFCE), **inte
 
 - **Brewfile**: CLIs aligned with `packages.txt` where applicable (`tmux`, `bat`, `ripgrep`, `fd`, `eza`, `lnav`, `gh`, `zoxide`, `chezmoi`, `btop`, `uv`), plus cask `font-jetbrains-mono-nerd-font`. No duplicate `yarn`/`node` brew by default—use **nvm** and `corepack enable` when a project needs Yarn.
 - **Shell**: [`dot_zshrc`](../dot_zshrc) initializes Homebrew PATH, Oh My Zsh (when present), **Powerlevel10k** (Tokyo Night–tuned [`dot_p10k.zsh`](../dot_p10k.zsh)), then shared extras. Put secrets in `~/.zshrc.local` (gitignored pattern).
-- **Bootstrap**: [`macos/install.sh`](../macos/install.sh) runs `brew bundle` and optionally `rcup` when rcm is present; **chezmoi** is the canonical dotfile path—run `chezmoi apply` with this repo as your source (see [README](../README.md)).
+- **Bootstrap**: [`macos/install.sh`](../macos/install.sh) runs `brew bundle`, [`scripts/install-omz-p10k.sh`](../scripts/install-omz-p10k.sh), Cursor/VS Code extensions, and optionally `rcup` when rcm is present; **chezmoi** is the canonical dotfile path—run `chezmoi apply` with this repo as your source (see [README](../README.md)). Post-setup: [`macos/verify.sh`](../macos/verify.sh).
 
 ### Arch Linux (typical laptop)
 
@@ -100,7 +100,11 @@ This repo does not ship the binary font files (copyright/size); install once per
 Run the automated checker:
 
 ```bash
+# Linux Mint
 bash linux/verify.sh
+
+# macOS
+bash macos/verify.sh
 ```
 
 Manual spot-checks:
@@ -115,5 +119,5 @@ Manual spot-checks:
 
 ## Manual steps that may remain
 
-- Install [Oh My Zsh](https://ohmyz.sh/) and clone Powerlevel10k if [`linux/bootstrap.sh`](../linux/bootstrap.sh) / [`arch/bootstrap.sh`](../arch/bootstrap.sh) has not already done so.
+- Install [Oh My Zsh](https://ohmyz.sh/) and clone Powerlevel10k if [`linux/bootstrap.sh`](../linux/bootstrap.sh), [`macos/install.sh`](../macos/install.sh), or [`arch/bootstrap.sh`](../arch/bootstrap.sh) has not already done so.
 - On Steam Deck, choose distrobox vs host for CLIs per Valve’s current guidance.

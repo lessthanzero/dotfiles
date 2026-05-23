@@ -2,7 +2,6 @@ tap "homebrew/cask-fonts"
 
 # Core CLI (aligned with packages.txt / terminal UX; Node via nvm in shell, not duplicate brew node)
 brew "git"
-brew "micro"
 brew "zsh"
 brew "tmux"
 brew "bat"
@@ -21,9 +20,6 @@ brew "mas"
 # Media & utilities (install yarn via `corepack enable` when a project needs it, or: brew install yarn)
 brew "p7zip"
 brew "ffmpeg"
-
-# Editor (optional heavyweight)
-brew "doom-emacs"
 
 # Casks - System & Utilities
 cask "balenaetcher"
