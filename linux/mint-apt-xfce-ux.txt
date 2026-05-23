@@ -1,9 +1,9 @@
 # Optional XFCE desktop polish — one package per line (comments and blanks ignored by xfce-ux-mint.sh).
 # Optional extras (install manually): xfce4-whiskermenu-plugin xfce4-docklike-plugin qt6ct
 # Omitted: fonts, kitty, thunar-media-tags-plugin.
+# bibata-cursor-theme omitted on Mint — mint-cursor-themes already ships Bibata-Modern-Classic.
 
 arc-theme
 papirus-icon-theme
-bibata-cursor-theme
 thunar-archive-plugin
 qt5ct

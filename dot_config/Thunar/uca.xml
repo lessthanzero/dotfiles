@@ -3,7 +3,7 @@
   <action>
     <icon>utilities-terminal</icon>
     <name>Open Terminal Here</name>
-    <command>xfce4-terminal --working-directory %f</command>
+    <command>kitty --directory=%f</command>
     <description>Open terminal in selected folder</description>
     <patterns>*</patterns>
     <directories/>

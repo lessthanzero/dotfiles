@@ -1,0 +1,4 @@
+# Optional laptop power/battery packages — installed with: bash linux/bootstrap.sh --laptop
+tlp
+tlp-rdw
+powertop

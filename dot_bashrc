@@ -21,4 +21,14 @@ if [[ -f "${HOME}/.config/dotfiles/shell-extras.sh" ]]; then
   . "${HOME}/.config/dotfiles/shell-extras.sh"
 fi
 
+# Linux Mint / Debian helpers (when bash is still used)
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+  # shellcheck source=/dev/null
+  . /etc/bash_completion
+fi
+if [ -x /usr/lib/command-not-found ]; then
+  # shellcheck source=/dev/null
+  . /usr/lib/command-not-found
+fi
+
 [[ -f "${HOME}/.bashrc.local" ]] && . "${HOME}/.bashrc.local"

@@ -114,6 +114,9 @@ run_xfconf() {
     return 1
   fi
 
+  echo "==> exo: default terminal emulator (Kitty)"
+  xfconf_set_string exo-preferred-applications /TerminalEmulator 'kitty'
+
   echo "==> xsettings: theme / icons / cursor (fonts unchanged)"
   xfconf_set_string xsettings /Net/ThemeName 'Arc-Dark'
   xfconf_set_string xsettings /Net/IconThemeName 'Papirus'
@@ -153,7 +156,7 @@ Manual steps (not automated):
   • Session startup: Settings → Session and Startup → disable unwanted entries.
   • Tearing: try xfconf-query -c xfwm4 -p /general/vblank_mode -s glx or xpresent.
 
-Thunar “Open Terminal Here”: apply dotfiles (chezmoi) for ~/.config/Thunar/uca.xml if missing.
+Thunar “Open Terminal Here”: chezmoi applies ~/.config/Thunar/uca.xml (Kitty). Default terminal: Kitty via exo-preferred-applications.
 
 EOF
 }

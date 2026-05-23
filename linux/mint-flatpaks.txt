@@ -1,0 +1,5 @@
+# Flatpak app IDs — one per line (comments and blanks ignored by run_once_install_flatpaks.sh)
+md.obsidian.Obsidian
+me.kozec.syncthingtk
+org.getoutline.OutlineClient
+com.rustdesk.RustDesk

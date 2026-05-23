@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Debian / Ubuntu / Linux Mint: install CLI packages aligned with ../packages.txt plus tools
-# missing from APT (chezmoi, uv, starship). Does not install Obsidian (use Flatpak or browser).
-# Pair with chezmoi apply after Oh My Zsh + Powerlevel10k are installed (see README).
+# Debian / Ubuntu / Linux Mint 22.x (Noble): APT CLI packages aligned with ../packages.txt
+# plus tools missing from APT (chezmoi, uv, starship). Prefer linux/bootstrap.sh for full setup.
+# Does not install Obsidian (use Flatpak or browser).
 set -euo pipefail
 
 PATH="$HOME/.local/bin:$PATH"
@@ -49,10 +49,5 @@ if ! have starship; then
 fi
 
 echo ""
-echo "Done. Next:"
-echo "  1. Install Oh My Zsh: https://ohmyz.sh/#install"
-echo "  2. git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \\"
-echo "       \"\${ZSH_CUSTOM:-\$HOME/.oh-my-zsh/custom}/themes/powerlevel10k\""
-echo "  3. chezmoi apply"
-echo "  4. Optional: chsh -s \"\$(command -v zsh)\""
+echo "APT CLI install done. For full Mint setup run: bash linux/bootstrap.sh"
 echo "Node: use nvm (see ~/.zshrc), not apt nodejs, unless you know you need system Node."

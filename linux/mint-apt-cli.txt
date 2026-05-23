@@ -1,4 +1,5 @@
-# Linux Mint / Ubuntu / Debian — APT CLI packages aligned with ../packages.txt (minus node/npm/uv/chezmoi/starship/obsidian).
+# Linux Mint 22.x (Ubuntu Noble) / Debian — APT CLI packages aligned with ../packages.txt
+# (minus node/npm/uv/chezmoi/starship/obsidian).
 #
 # Node: prefer nvm (~/.zshrc); system node is optional.
 # Obsidian: Flatpak (see run_once_install_flatpaks.sh) or upstream; Arch uses pacman.
