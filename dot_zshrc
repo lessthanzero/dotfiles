@@ -133,5 +133,19 @@ if [[ -f "${HOME}/.config/dotfiles/shell-extras.sh" ]]; then
   . "${HOME}/.config/dotfiles/shell-extras.sh"
 fi
 
+# SSH agent: reuse session agent or start one; load default key if missing
+if [[ -o interactive ]] && command -v ssh-add >/dev/null 2>&1; then
+  if [[ -z "${SSH_AUTH_SOCK:-}" ]] || ! ssh-add -l >/dev/null 2>&1; then
+    eval "$(ssh-agent -s)" >/dev/null
+  fi
+  if [[ -f "${HOME}/.ssh/id_ed25519" ]] && ! ssh-add -l 2>/dev/null | grep -qF id_ed25519; then
+    if [[ "$(uname -s)" == Darwin ]]; then
+      ssh-add --apple-use-keychain "${HOME}/.ssh/id_ed25519" 2>/dev/null
+    else
+      ssh-add "${HOME}/.ssh/id_ed25519" 2>/dev/null
+    fi
+  fi
+fi
+
 # Secrets and local overrides (not in git): e.g. HOMEBREW_GITHUB_API_TOKEN
 [[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
