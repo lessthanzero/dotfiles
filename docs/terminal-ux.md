@@ -26,7 +26,7 @@ Shared pieces: **tmux**, **Kitty** (default terminal on Linux Mint/XFCE), **inte
 ### macOS
 
 - **Brewfile**: CLIs aligned with `packages.txt` where applicable (`tmux`, `bat`, `ripgrep`, `fd`, `eza`, `lnav`, `gh`, `zoxide`, `chezmoi`, `btop`, `uv`), plus cask `font-jetbrains-mono-nerd-font`. No duplicate `yarn`/`node` brew by default—use **nvm** and `corepack enable` when a project needs Yarn.
-- **Shell**: [`dot_zshrc`](../dot_zshrc) initializes Homebrew PATH, Oh My Zsh (when present), **Powerlevel10k** (Tokyo Night–tuned [`dot_p10k.zsh`](../dot_p10k.zsh)), then shared extras. Put secrets in `~/.zshrc.local` (gitignored pattern).
+- **Shell**: [`dot_zshrc`](../dot_zshrc) initializes Homebrew PATH, Oh My Zsh (when present), **Powerlevel10k** (Tokyo Night–tuned [`dot_p10k.zsh`](../dot_p10k.zsh)), then shared extras. **`dot_zshrc` must source `~/.p10k.zsh` after OMZ** — without it, p10k re-runs the configuration wizard on every new terminal tab. Put secrets in `~/.zshrc.local` (gitignored pattern).
 - **Bootstrap**: [`macos/install.sh`](../macos/install.sh) runs `brew bundle`, [`scripts/install-omz-p10k.sh`](../scripts/install-omz-p10k.sh), Cursor/VS Code extensions, and optionally `rcup` when rcm is present; **chezmoi** is the canonical dotfile path—run `chezmoi apply` with this repo as your source (see [README](../README.md)). Post-setup: [`macos/verify.sh`](../macos/verify.sh).
 
 ### Arch Linux (typical laptop)

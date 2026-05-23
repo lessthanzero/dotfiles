@@ -21,6 +21,7 @@ APT_PACKAGES=(
   zoxide
   btop
   gh
+  keychain
 )
 
 echo "Updating APT and installing CLI packages..."
