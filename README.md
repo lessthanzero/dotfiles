@@ -47,6 +47,7 @@ Details, verification, and caveats: [docs/terminal-ux.md](docs/terminal-ux.md).
 | [`linux/install-nerd-font-jetbrains.sh`](linux/install-nerd-font-jetbrains.sh) | JetBrains Mono Nerd Font (user fonts) |
 | [`linux/verify.sh`](linux/verify.sh) | Post-setup sanity checks |
 | [`linux/bootstrap-cli.sh`](linux/bootstrap-cli.sh) | APT CLI only (called by `bootstrap.sh`) |
+| [`linux/mint-bootstrap.sh`](linux/mint-bootstrap.sh) | Minimal Mint path — APT + OMZ/p10k + `chezmoi apply` |
 | [`linux/linux-xfce-setup.sh`](linux/linux-xfce-setup.sh) | **Parents laptop only** — hostname, swap, VPN, etc. Do not run on dev machines |
 
 ### macOS scripts

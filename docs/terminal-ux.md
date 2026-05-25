@@ -37,7 +37,7 @@ Shared pieces: **tmux**, **Kitty** (default terminal on Linux Mint/XFCE), **inte
 
 ### Linux Mint 22.x (Ubuntu Noble) / Debian-family
 
-- **Bootstrap**: [`linux/bootstrap.sh`](../linux/bootstrap.sh) — APT packages, **chezmoi**, **uv**, **Starship**, Oh My Zsh, Powerlevel10k. Use `--laptop` for TLP/powertop ([`linux/mint-apt-laptop.txt`](../linux/mint-apt-laptop.txt)).
+- **Bootstrap**: [`linux/bootstrap.sh`](../linux/bootstrap.sh) — APT packages, **chezmoi**, **uv**, **Starship**, Oh My Zsh, Powerlevel10k. Use `--laptop` for TLP/powertop ([`linux/mint-apt-laptop.txt`](../linux/mint-apt-laptop.txt)). Lighter alternative: [`linux/mint-bootstrap.sh`](../linux/mint-bootstrap.sh) (APT + OMZ/p10k + `chezmoi apply` only).
 - **APT list**: [`linux/mint-apt-cli.txt`](../linux/mint-apt-cli.txt) — same packages as copy-paste reference.
 - **Shell**: **bash** → [`dot_bashrc`](../dot_bashrc) (Starship + Mint `command-not-found`). **zsh** → [`dot_zshrc`](../dot_zshrc) + **Powerlevel10k**.
 - **Autostart / stalling login**: entries under `~/.config/autostart/` that point to missing AppImages, moved paths, or broken `Exec=` lines (VPN clients like Outline, cloud sync, etc.) can hang or slow the session and flood logs. Inspect with `ls ~/.config/autostart/`, open each `.desktop` file, and remove or fix stale entries. Paths with spaces or non-ASCII directory names are easy to break—quote `Exec=` correctly or use wrappers.

@@ -237,7 +237,7 @@ if command -v code &> /dev/null; then
     vscode_install_ext(){
         run code --install-extension "$@"
     }
-    vscode_install_ext wesbos.theme-cobalt2
+    vscode_install_ext enkia.tokyo-night
     vscode_install_ext formulahendry.auto-close-tag
     vscode_install_ext dbaeumer.vscode-eslint
     vscode_install_ext eamodio.gitlens
@@ -252,7 +252,6 @@ if command -v code &> /dev/null; then
     # Note: code-settings-sync is deprecated, VS Code now has built-in Settings Sync
     vscode_install_ext ms-vscode.sublime-keybindings
     vscode_install_ext ms-vsliveshare.vsliveshare
-    vscode_install_ext enkia.tokyo-night
 else
     echo "Warning: VS Code 'code' command not found. Install VS Code first or add to PATH."
 fi

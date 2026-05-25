@@ -1,5 +1,3 @@
-tap "homebrew/cask-fonts"
-
 # Core CLI (aligned with packages.txt / terminal UX; Node via nvm in shell, not duplicate brew node)
 brew "git"
 brew "zsh"
@@ -24,6 +22,7 @@ brew "ffmpeg"
 # Casks - System & Utilities
 cask "balenaetcher"
 cask "iterm2"
+cask "kitty"
 cask "rectangle"  # window tiling/snap (not Slate)
 cask "karabiner-elements"
 cask "stats"
