@@ -55,7 +55,7 @@ Screenflick.app
 Sensei.app
 Sketch.app
 Slack.app
-Slate.app
+Rectangle.app
 Snap Camera.app
 Soulver 3.app
 Spotify.app

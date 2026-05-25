@@ -24,6 +24,7 @@ brew "ffmpeg"
 # Casks - System & Utilities
 cask "balenaetcher"
 cask "iterm2"
+cask "rectangle"  # window tiling/snap (not Slate)
 cask "karabiner-elements"
 cask "stats"
 cask "the-unarchiver"

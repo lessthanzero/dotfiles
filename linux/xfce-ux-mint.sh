@@ -146,8 +146,8 @@ run_xfconf() {
   cat <<'EOF'
 
 Manual steps (not automated):
-  • If Super+arrow tiling fails: Whisker bound to Super alone conflicts with xfwm4 on X11.
-    Bind Whisker to Super+Space or Alt+F1, then re-test Super+Left/Right/Up.
+  • Whisker Menu: do not bind to Super alone (blocks Super+arrow on X11). Use Super+Space or Alt+F1.
+  • Super+Left/Right/Up tiling only works after Whisker is remapped away from Super.
   • Super+r is overridden (/usr/bin/true + cleared default) so Super+Right reaches xfwm4. App finder: Super+Page Down; Alt+F3 = full finder.
   • Optional: sudo apt install xfce4-whiskermenu-plugin xfce4-docklike-plugin — then add plugins and remove default taskbar in Panel preferences.
   • Run qt5ct once and pick a GTK-friendly Qt style (e.g. Arc / Fusion + palette).
