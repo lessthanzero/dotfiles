@@ -7,3 +7,4 @@ arc-theme
 papirus-icon-theme
 thunar-archive-plugin
 qt5ct
+wmctrl

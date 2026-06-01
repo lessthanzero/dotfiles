@@ -125,20 +125,38 @@ run_xfconf() {
   echo "==> xfwm4: mouse edge tiling"
   xfconf_set_bool xfwm4 /general/tile_on_move true
 
-  echo "==> xfwm4 keyboard: Super+arrows (xfwm4 action ids on /xfwm4/custom/)"
-  xfconf_set_string xfce4-keyboard-shortcuts '/xfwm4/custom/<Super>Left' tile_left_key
-  xfconf_set_string xfce4-keyboard-shortcuts '/xfwm4/custom/<Super>Right' tile_right_key
-  xfconf_set_string xfce4-keyboard-shortcuts '/xfwm4/custom/<Super>Up' maximize_window_key
+  echo "==> Super+arrow window shortcuts (wmctrl via application shortcuts; Mint Super_L breaks xfwm4 Super+arrow on X11)"
+  local tile_left="${HOME}/.local/bin/xfce-tile-left.sh"
+  local tile_right="${HOME}/.local/bin/xfce-tile-right.sh"
+  local win_maximize="${HOME}/.local/bin/xfce-window-maximize.sh"
+  local win_restore="${HOME}/.local/bin/xfce-window-restore.sh"
+  install -d "${HOME}/.local/bin"
+  install -m 755 "${SCRIPT_DIR}/bin/xfce-tile-left.sh" "$tile_left"
+  install -m 755 "${SCRIPT_DIR}/bin/xfce-tile-right.sh" "$tile_right"
+  install -m 755 "${SCRIPT_DIR}/bin/xfce-window-maximize.sh" "$win_maximize"
+  install -m 755 "${SCRIPT_DIR}/bin/xfce-window-restore.sh" "$win_restore"
+  xfconf_set_string xfce4-keyboard-shortcuts '/commands/custom/<Super>Left' "$tile_left"
+  xfconf_set_string xfce4-keyboard-shortcuts '/commands/custom/<Super>Right' "$tile_right"
+  xfconf_set_string xfce4-keyboard-shortcuts '/commands/custom/<Super>Up' "$win_maximize"
+  xfconf_set_string xfce4-keyboard-shortcuts '/commands/custom/<Super>Down' "$win_restore"
 
-  echo "==> Neutralize <Super>r (Mint default runs xfce4-appfinder and blocks Super+Right unless fully overridden)"
+  echo "==> Override Mint Super_L whiskermenu (libxfce4ui grabs Super on press and blocks arrow combos in xfwm4)"
+  xfconf_set_string xfce4-keyboard-shortcuts '/commands/custom/Super_L' '/usr/bin/true'
+  xfconf_set_string xfce4-keyboard-shortcuts '/commands/custom/<Super>space' 'xfce4-popup-whiskermenu'
+  xfconf_set_bool xfce4-keyboard-shortcuts '/commands/custom/<Super>space/startup-notify' true
+
+  echo "==> Neutralize <Super>r (Mint default runs xfce4-appfinder and can block Super+Right)"
   xfconf_set_string xfce4-keyboard-shortcuts '/commands/custom/<Super>r' '/usr/bin/true'
   xfconf_run -c xfce4-keyboard-shortcuts -p '/commands/default/<Super>r' -s '' 2>/dev/null || true
 
-  echo "==> App finder (xfce4-appfinder -c) on Super+Page Down (replaces old Super+r; Win+Right stays tile-right)"
+  echo "==> App finder (xfce4-appfinder -c) on Super+Page Down (replaces old Super+r)"
   xfconf_set_string xfce4-keyboard-shortcuts '/commands/custom/<Super>Page_Down' 'xfce4-appfinder -c'
   xfconf_set_bool xfce4-keyboard-shortcuts '/commands/custom/<Super>Page_Down/startup-notify' true
 
-  echo "==> Reload panel"
+  echo "==> Reload keyboard shortcuts and panel"
+  if command -v xfsettingsd &>/dev/null; then
+    desktop_user_run bash -c 'xfsettingsd --replace >/dev/null 2>&1 &' 2>/dev/null || true
+  fi
   if command -v xfce4-panel &>/dev/null; then
     desktop_user_run xfce4-panel -r 2>/dev/null || true
   fi
@@ -146,9 +164,9 @@ run_xfconf() {
   cat <<'EOF'
 
 Manual steps (not automated):
-  • Whisker Menu: do not bind to Super alone (blocks Super+arrow on X11). Use Super+Space or Alt+F1.
-  • Super+Left/Right/Up tiling only works after Whisker is remapped away from Super.
-  • Super+r is overridden (/usr/bin/true + cleared default) so Super+Right reaches xfwm4. App finder: Super+Page Down; Alt+F3 = full finder.
+  • Whisker Menu: Super+Space (script sets this). Do not leave Mint’s default Super alone → whiskermenu active.
+  • Super+Left/Right tile; Super+Up maximize; Super+Down restore default size — ~/.local/bin/xfce-*.sh (wmctrl).
+  • Super+r is overridden (/usr/bin/true) so it does not open app finder. App finder: Super+Page Down; Alt+F3 = full finder.
   • Optional: sudo apt install xfce4-whiskermenu-plugin xfce4-docklike-plugin — then add plugins and remove default taskbar in Panel preferences.
   • Run qt5ct once and pick a GTK-friendly Qt style (e.g. Arc / Fusion + palette).
   • Qt6 apps: install qt6ct if needed and set QT_QPA_PLATFORMTHEME=qt6ct (see ~/.config/environment.d/ after chezmoi apply).

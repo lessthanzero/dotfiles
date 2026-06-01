@@ -61,14 +61,21 @@ else
 fi
 
 echo ""
-echo "==> xfwm4 Super+arrow shortcuts"
+echo "==> Super+arrow window shortcuts"
 if command -v xfconf-query >/dev/null 2>&1 && [[ -n "${DISPLAY:-}" ]]; then
-  left="$(xfconf-query -c xfce4-keyboard-shortcuts -p '/xfwm4/custom/<Super>Left' 2>/dev/null || true)"
-  right="$(xfconf-query -c xfce4-keyboard-shortcuts -p '/xfwm4/custom/<Super>Right' 2>/dev/null || true)"
-  [[ "$left" == "tile_left_key" ]] && ok "Super+Left" || warn "Super+Left not set ($left)"
-  [[ "$right" == "tile_right_key" ]] && ok "Super+Right" || warn "Super+Right not set ($right)"
+  left="$(xfconf-query -c xfce4-keyboard-shortcuts -p '/commands/custom/<Super>Left' 2>/dev/null || true)"
+  right="$(xfconf-query -c xfce4-keyboard-shortcuts -p '/commands/custom/<Super>Right' 2>/dev/null || true)"
+  up="$(xfconf-query -c xfce4-keyboard-shortcuts -p '/commands/custom/<Super>Up' 2>/dev/null || true)"
+  down="$(xfconf-query -c xfce4-keyboard-shortcuts -p '/commands/custom/<Super>Down' 2>/dev/null || true)"
+  super_l="$(xfconf-query -c xfce4-keyboard-shortcuts -p '/commands/custom/Super_L' 2>/dev/null || true)"
+  [[ "$left" == *xfce-tile-left.sh ]] && ok "Super+Left → tile" || warn "Super+Left not set to tile script ($left)"
+  [[ "$right" == *xfce-tile-right.sh ]] && ok "Super+Right → tile" || warn "Super+Right not set to tile script ($right)"
+  [[ "$up" == *xfce-window-maximize.sh ]] && ok "Super+Up → maximize" || warn "Super+Up not set ($up)"
+  [[ "$down" == *xfce-window-restore.sh ]] && ok "Super+Down → restore" || warn "Super+Down not set ($down)"
+  [[ "$super_l" == "/usr/bin/true" ]] && ok "Super_L whiskermenu overridden" || warn "Super_L not overridden ($super_l) — Mint default whiskermenu blocks Super+arrow"
+  command -v wmctrl >/dev/null 2>&1 && ok "wmctrl" || warn "wmctrl missing (required for window scripts)"
 else
-  warn "skipping xfconf shortcut check"
+  warn "skipping window shortcut check"
 fi
 
 echo ""
