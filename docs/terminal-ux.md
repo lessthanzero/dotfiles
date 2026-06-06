@@ -48,6 +48,7 @@ Lean desktop polish (theme/icons/cursor, Qt via **qt5ct**, Thunar archive integr
 
 - **Script**: [`linux/xfce-ux-mint.sh`](../linux/xfce-ux-mint.sh) — run inside a graphical session (`DISPLAY` set). Installs APT packages from [`linux/mint-apt-xfce-ux.txt`](../linux/mint-apt-xfce-ux.txt), sets **Kitty** as XFCE default terminal (`exo-preferred-applications`), then applies xfconf (Arc-Dark / Papirus / Bibata cursor, `tile_on_move`, xfwm4 shortcuts). Flags: `--apt-only`, `--xfconf-only`.
 - **Kitty**: [`dot_config/kitty/kitty.conf`](../dot_config/kitty/kitty.conf) — Tokyo Night–adjacent colors, JetBrains Mono Nerd Font, `shell=zsh`.
+- **Midnight Commander / ranger**: Tokyo Night skin and colorscheme — [`dot_local/share/mc/skins/tokyonight.ini`](../dot_local/share/mc/skins/tokyonight.ini) (upstream [Lairizzle/mc-tokyonight-skin](https://github.com/Lairizzle/mc-tokyonight-skin)), [`dot_config/ranger/colorschemes/tokyonight.py`](../dot_config/ranger/colorschemes/tokyonight.py) + [`dot_config/ranger/rc.conf`](../dot_config/ranger/rc.conf). MC skin is enabled by [`run_onchange_set-mc-skin.sh`](../run_onchange_set-mc-skin.sh) (`skin=tokyonight`). Install: `sudo apt install mc ranger` ([`linux/mint-apt-cli.txt`](../linux/mint-apt-cli.txt)).
 - **Arch (same ideas, manual)**: [`linux/arch-pkg-xfce-ux.txt`](../linux/arch-pkg-xfce-ux.txt) — `sudo pacman -S --needed - < linux/arch-pkg-xfce-ux.txt` (not wired into [`arch/bootstrap.sh`](../arch/bootstrap.sh)).
 - **Chezmoi**: [`dot_config/environment.d/10-qt-theme.conf`](../dot_config/environment.d/10-qt-theme.conf) sets `QT_QPA_PLATFORMTHEME=qt5ct`. Install **qt6ct** and switch that variable to `qt6ct` if you rely on Qt6 apps without qt5ct compatibility. Run **qt5ct** once after install.
 - **Thunar**: [`dot_config/Thunar/uca.xml`](../dot_config/Thunar/uca.xml) adds “Open Terminal Here” (**Kitty**). If you already use custom actions, merge carefully or back up `~/.config/Thunar/uca.xml` before `chezmoi apply`.
@@ -118,6 +119,7 @@ Manual spot-checks:
 5. **tmux**: `tmux` → `Ctrl-b` then `|` / `-` for splits, `r` reloads config.
 6. **Kitty default**: `xfconf-query -c exo-preferred-applications -p /TerminalEmulator` → `kitty`.
 7. **Nerd Font**: `fc-list | grep -i 'JetBrainsMono.*Nerd Font'`; Cursor integrated terminal shows glyphs.
+8. **MC / ranger**: `grep '^skin=' ~/.config/mc/ini` → `skin=tokyonight`; `grep colorscheme ~/.config/ranger/rc.conf` → `tokyonight`; skin file at `~/.local/share/mc/skins/tokyonight.ini`.
 
 ## Manual steps that may remain
 

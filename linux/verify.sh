@@ -48,6 +48,23 @@ echo "==> Kitty config"
 [[ -f "${HOME}/.config/kitty/kitty.conf" ]] && ok "kitty.conf" || warn "kitty.conf missing (chezmoi apply?)"
 
 echo ""
+echo "==> MC / ranger (Tokyo Night)"
+[[ -f "${HOME}/.local/share/mc/skins/tokyonight.ini" ]] && ok "mc tokyonight skin" || warn "mc skin missing (chezmoi apply?)"
+if [[ -f "${HOME}/.config/mc/ini" ]] && grep -q '^skin=tokyonight' "${HOME}/.config/mc/ini"; then
+  ok "mc skin=tokyonight"
+else
+  warn "mc skin not tokyonight (~/.config/mc/ini)"
+fi
+[[ -f "${HOME}/.config/ranger/colorschemes/tokyonight.py" ]] && ok "ranger tokyonight colorscheme" || warn "ranger colorscheme missing"
+if [[ -f "${HOME}/.config/ranger/rc.conf" ]] && grep -q 'colorscheme tokyonight' "${HOME}/.config/ranger/rc.conf"; then
+  ok "ranger colorscheme tokyonight"
+else
+  warn "ranger rc.conf missing tokyonight colorscheme"
+fi
+command -v mc >/dev/null 2>&1 && ok "mc" || warn "optional missing: mc"
+command -v ranger >/dev/null 2>&1 && ok "ranger" || warn "optional missing: ranger"
+
+echo ""
 echo "==> XFCE default terminal"
 if command -v xfconf-query >/dev/null 2>&1 && [[ -n "${DISPLAY:-}" ]]; then
   term="$(xfconf-query -c exo-preferred-applications -p /TerminalEmulator 2>/dev/null || true)"
