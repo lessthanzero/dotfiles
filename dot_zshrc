@@ -64,6 +64,18 @@ if [[ -x /opt/homebrew/bin/brew ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 elif [[ -x /usr/local/bin/brew ]]; then
   eval "$(/usr/local/bin/brew shellenv)"
+elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+# Flatpak aliases for CLI parity (e.g., Fedora Kinoite)
+if command -v flatpak >/dev/null 2>&1; then
+  if ! command -v cursor >/dev/null 2>&1 && flatpak info com.usecursor.Cursor >/dev/null 2>&1; then
+    alias cursor="flatpak run com.usecursor.Cursor"
+  fi
+  if ! command -v obsidian >/dev/null 2>&1 && flatpak info md.obsidian.Obsidian >/dev/null 2>&1; then
+    alias obsidian="flatpak run md.obsidian.Obsidian"
+  fi
 fi
 
 if [[ -f "$ZSH/oh-my-zsh.sh" ]]; then
@@ -117,11 +129,32 @@ fi
 #. ~/z.sh
 export PATH="/usr/local/sbin:$PATH"
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+nvm() {
+  unset -f nvm node npm npx
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+  nvm "$@"
+}
+
+node() {
+  unset -f nvm node npm npx
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  command node "$@"
+}
+
+npm() {
+  unset -f nvm node npm npx
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  command npm "$@"
+}
+
+npx() {
+  unset -f nvm node npm npx
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  command npx "$@"
+}
 
 # zoxide (directory jumping)
 if [[ -o interactive ]] && command -v zoxide >/dev/null 2>&1; then

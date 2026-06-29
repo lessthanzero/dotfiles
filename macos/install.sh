@@ -224,10 +224,10 @@ else
     run brew update
 fi
 
-echo '🛠  Installing Homebrew packages…'
-run brew bundle
-
 MACOS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+echo '🛠  Installing Homebrew packages…'
+run brew bundle --file="${MACOS_DIR}/Brewfile"
+
 echo '🛠  Installing Oh My Zsh + Powerlevel10k…'
 bash "${MACOS_DIR}/../scripts/install-omz-p10k.sh"
 
@@ -256,19 +256,23 @@ else
     echo "Warning: VS Code 'code' command not found. Install VS Code first or add to PATH."
 fi
 
+# VS Code Insiders: Tokyo Night (Insiders uses `code` in its app bundle bin)
+if command -v code-insiders &> /dev/null; then
+    echo "Install VS Code Insiders extension (Tokyo Night)."
+    run code-insiders --install-extension enkia.tokyo-night
+elif [[ -x "/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin/code" ]]; then
+    echo "Install VS Code Insiders extension (Tokyo Night)."
+    run "/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin/code" --install-extension enkia.tokyo-night
+fi
+
 # Cursor: same Tokyo Night theme extension as dotfiles Cursor settings (Chezmoi)
 if command -v cursor &> /dev/null; then
     echo "Install Cursor extension (Tokyo Night)."
     run cursor --install-extension enkia.tokyo-night
 fi
 
-# Install dotfiles if rcm is available (chezmoi users: run `chezmoi apply` yourself; do not rely on rcup alone)
-if command -v rcup &> /dev/null; then
-    echo '🛠  Installing dotfiles…'
-    rcup
-else
-    echo "Note: chezmoi is the canonical dotfile path — run chezmoi apply after this script (see next steps below)."
-fi
+# Chezmoi is the canonical dotfile path — run chezmoi apply after this script (see next steps below).
+echo "Note: chezmoi is the canonical dotfile path — run chezmoi apply after this script."
 
 # Install all the Mac App Store applications using mas. https://github.com/mas-cli/mas
 if command -v mas &> /dev/null; then

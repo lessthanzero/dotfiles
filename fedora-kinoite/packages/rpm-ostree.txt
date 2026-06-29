@@ -1,0 +1,20 @@
+# Base system packages for Fedora Kinoite (atomic desktop)
+git
+git-lfs
+openssh-server
+tailscale
+podman
+distrobox
+toolbox
+zsh
+tmux
+ripgrep
+fd-find
+fzf
+bat
+eza
+fastfetch
+btop
+lm_sensors
+smartmontools
+kitty

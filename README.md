@@ -22,18 +22,17 @@ chezmoi init --apply git@github.com:lessthanzero/dotfiles.git
 
 Later, refresh from git: `chezmoi update && chezmoi apply`, or `git pull` inside `$(chezmoi source-path)` (often `~/.local/share/chezmoi`) then `chezmoi apply`.
 
-**rcm** ([thoughtbot/rcm](https://github.com/thoughtbot/rcm)) is optional legacy tooling: `rcup` only if you use an rcm layout. If you use chezmoi, you do not need `rcup`.
-
-[`macos/install.sh`](macos/install.sh) runs `brew bundle`, Oh My Zsh + Powerlevel10k ([`scripts/install-omz-p10k.sh`](scripts/install-omz-p10k.sh)), and may run `rcup` when `rcm` is installed; **chezmoi users** should run **`chezmoi apply`** separately after pointing chezmoi at this repo.
+[`macos/install.sh`](macos/install.sh) runs `brew bundle`, Oh My Zsh + Powerlevel10k ([`scripts/install-omz-p10k.sh`](scripts/install-omz-p10k.sh)); **chezmoi users** should run **`chezmoi apply`** separately after pointing chezmoi at this repo.
 
 ### By platform
 
 | Platform | Packages / bootstrap | Dotfiles |
 |----------|------------------------|----------|
-| **macOS** | [`Brewfile`](Brewfile) via `brew bundle` (optional: [`macos/install.sh`](macos/install.sh)) | `chezmoi apply` (same `dot_*` as everywhere) |
+| **macOS** | [`macos/Brewfile`](macos/Brewfile) via `brew bundle` (optional: [`macos/install.sh`](macos/install.sh)) | `chezmoi apply` (same `dot_*` as everywhere) |
 | **Arch (typical laptop)** | [`packages.txt`](packages.txt) + [`arch/bootstrap.sh`](arch/bootstrap.sh) (`pacman` + `chezmoi apply`) | `chezmoi apply` |
-| **Linux Mint / Debian** | [`linux/bootstrap.sh`](linux/bootstrap.sh) (APT + chezmoi/uv/starship + OMZ + p10k; `--laptop` for TLP). Package list: [`linux/mint-apt-cli.txt`](linux/mint-apt-cli.txt) | `chezmoi apply`; bash → [`dot_bashrc`](dot_bashrc), zsh → [`dot_zshrc`](dot_zshrc) |
-| **XFCE UX (optional)** | Mint/Ubuntu: [`linux/xfce-ux-mint.sh`](linux/xfce-ux-mint.sh) + [`linux/mint-apt-xfce-ux.txt`](linux/mint-apt-xfce-ux.txt). Arch (manual): [`linux/arch-pkg-xfce-ux.txt`](linux/arch-pkg-xfce-ux.txt) | Same `chezmoi apply` — adds `~/.config/environment.d/` (Qt) and Thunar custom action |
+| **Linux Mint / Debian** | [`linux-mint/bootstrap.sh`](linux-mint/bootstrap.sh) (APT + chezmoi/uv/starship + OMZ + p10k; `--laptop` for TLP). Package list: [`linux-mint/mint-apt-cli.txt`](linux-mint/mint-apt-cli.txt) | `chezmoi apply`; bash → [`dot_bashrc`](dot_bashrc), zsh → [`dot_zshrc`](dot_zshrc) |
+| **Fedora Kinoite (Atomic)**| [`fedora-kinoite/bootstrap.sh`](fedora-kinoite/bootstrap.sh) (`rpm-ostree` + `flatpak` + `podman` + `brew`) | `chezmoi apply` |
+| **XFCE UX (optional)** | Mint/Ubuntu: [`linux-mint/xfce-ux-mint.sh`](linux-mint/xfce-ux-mint.sh) + [`linux-mint/mint-apt-xfce-ux.txt`](linux-mint/mint-apt-xfce-ux.txt). Arch (manual): [`linux/arch-pkg-xfce-ux.txt`](linux/arch-pkg-xfce-ux.txt) | Same `chezmoi apply` — adds `~/.config/environment.d/` (Qt) and Thunar custom action |
 | **Steam Deck / SteamOS** | **Do not** run [`arch/bootstrap.sh`](arch/bootstrap.sh) as a full Arch script; install CLIs via distrobox/flatpak if needed | `chezmoi apply` for user-level configs only |
 
 Details, verification, and caveats: [docs/terminal-ux.md](docs/terminal-ux.md).
@@ -42,13 +41,20 @@ Details, verification, and caveats: [docs/terminal-ux.md](docs/terminal-ux.md).
 
 | Script | Use on |
 |--------|--------|
-| [`linux/bootstrap.sh`](linux/bootstrap.sh) | **Your dev laptops** — CLI tools, chezmoi, OMZ, p10k (`--laptop` adds TLP) |
-| [`linux/xfce-ux-mint.sh`](linux/xfce-ux-mint.sh) | Optional XFCE polish — themes, **Kitty default terminal**, Super+arrow tiling |
-| [`linux/install-nerd-font-jetbrains.sh`](linux/install-nerd-font-jetbrains.sh) | JetBrains Mono Nerd Font (user fonts) |
-| [`linux/verify.sh`](linux/verify.sh) | Post-setup sanity checks |
-| [`linux/bootstrap-cli.sh`](linux/bootstrap-cli.sh) | APT CLI only (called by `bootstrap.sh`) |
-| [`linux/mint-bootstrap.sh`](linux/mint-bootstrap.sh) | Minimal Mint path — APT + OMZ/p10k + `chezmoi apply` |
-| [`linux/linux-xfce-setup.sh`](linux/linux-xfce-setup.sh) | **Parents laptop only** — hostname, swap, VPN, etc. Do not run on dev machines |
+| [`linux-mint/bootstrap.sh`](linux-mint/bootstrap.sh) | **Your dev laptops** — CLI tools, chezmoi, OMZ, p10k (`--laptop` adds TLP) |
+| [`linux-mint/xfce-ux-mint.sh`](linux-mint/xfce-ux-mint.sh) | Optional XFCE polish — themes, **Kitty default terminal**, Super+arrow tiling |
+| [`linux-mint/install-nerd-font-jetbrains.sh`](linux-mint/install-nerd-font-jetbrains.sh) | JetBrains Mono Nerd Font (user fonts) |
+| [`linux-mint/verify.sh`](linux-mint/verify.sh) | Post-setup sanity checks |
+| [`linux-mint/bootstrap-cli.sh`](linux-mint/bootstrap-cli.sh) | APT CLI only (called by `bootstrap.sh`) |
+| [`linux-mint/mint-bootstrap.sh`](linux-mint/mint-bootstrap.sh) | Minimal Mint path — APT + OMZ/p10k + `chezmoi apply` |
+| [`linux-mint/linux-xfce-setup.sh`](linux-mint/linux-xfce-setup.sh) | **Parents laptop only** — hostname, swap, VPN, etc. Do not run on dev machines |
+
+### Fedora Kinoite scripts (which to run)
+
+| Script | Use on |
+|--------|--------|
+| [`fedora-kinoite/bootstrap.sh`](fedora-kinoite/bootstrap.sh) | **Fedora Kinoite workstation** — rpm-ostree packages, flatpaks, Homebrew, Ollama, OMZ, p10k |
+| [`fedora-kinoite/verify.sh`](fedora-kinoite/verify.sh) | Post-setup sanity checks |
 
 ### macOS scripts
 
@@ -67,8 +73,8 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
   "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 ```
 
-[`arch/bootstrap.sh`](arch/bootstrap.sh) clones Powerlevel10k into `~/.oh-my-zsh/custom/themes` when you run it. [`linux/bootstrap.sh`](linux/bootstrap.sh) does the same on Mint/Debian.
+[`arch/bootstrap.sh`](arch/bootstrap.sh) clones Powerlevel10k into `~/.oh-my-zsh/custom/themes` when you run it. [`linux-mint/bootstrap.sh`](linux-mint/bootstrap.sh) does the same on Mint/Debian, and [`fedora-kinoite/bootstrap.sh`](fedora-kinoite/bootstrap.sh) does it on Kinoite.
 
-Use a [Nerd Font](https://www.nerdfonts.com/) in your terminal (e.g. **JetBrains Mono Nerd** — macOS: [`Brewfile`](Brewfile) cask `font-jetbrains-mono-nerd-font`; Linux: [`linux/install-nerd-font-jetbrains.sh`](linux/install-nerd-font-jetbrains.sh) or [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases)). On Linux Mint/XFCE, **[Kitty](https://sw.kovidgoyal.net/kitty/)** is the default terminal ([`dot_config/kitty/kitty.conf`](dot_config/kitty/kitty.conf)); also set in **Cursor** — full steps in [`docs/terminal-ux.md`](docs/terminal-ux.md).
+Use a [Nerd Font](https://www.nerdfonts.com/) in your terminal (e.g. **JetBrains Mono Nerd** — macOS: [`macos/Brewfile`](macos/Brewfile) cask `font-jetbrains-mono-nerd-font`; Linux: [`linux-mint/install-nerd-font-jetbrains.sh`](linux-mint/install-nerd-font-jetbrains.sh) or [Nerd Fonts releases](https://github.com/ryanoasis/nerd-fonts/releases)). On Linux Mint/XFCE, **[Kitty](https://sw.kovidgoyal.net/kitty/)** is the default terminal ([`dot_config/kitty/kitty.conf`](dot_config/kitty/kitty.conf)); also set in **Cursor** — full steps in [`docs/terminal-ux.md`](docs/terminal-ux.md).
 
-**Bash** still uses [Starship](https://starship.rs/) with the Tokyo Night preset ([`dot_config/starship.toml`](dot_config/starship.toml)); install Starship via [`linux/bootstrap.sh`](linux/bootstrap.sh) or your package manager.
+**Bash** still uses [Starship](https://starship.rs/) with the Tokyo Night preset ([`dot_config/starship.toml`](dot_config/starship.toml)); install Starship via [`linux-mint/bootstrap.sh`](linux-mint/bootstrap.sh) or your package manager.

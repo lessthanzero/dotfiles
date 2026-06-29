@@ -1,0 +1,10 @@
+# Flatpaks for Fedora Kinoite
+com.usecursor.Cursor
+md.obsidian.Obsidian
+org.mozilla.firefox
+com.valvesoftware.Steam
+com.bitwarden.desktop
+com.github.tchx84.Flatseal
+io.missioncenter.MissionCenter
+io.github.flattool.Warehouse
+net.davidotek.pupgui2

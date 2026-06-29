@@ -3,7 +3,8 @@ Brewfile
 LICENSE.md
 README.md
 arch
-linux
+linux-mint
+fedora-kinoite
 macos
 packages.txt
 docs
