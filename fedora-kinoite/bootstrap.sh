@@ -23,12 +23,18 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 echo "==> Enabling RPM Fusion repositories..."
 if [ ! -f /etc/yum.repos.d/rpmfusion-free.repo ]; then
-    sudo rpm-ostree install --apply-live -y \
-        https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-        https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm || \
-    sudo rpm-ostree install -y \
-        https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-        https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    if command -v rpm-ostree &>/dev/null; then
+        sudo rpm-ostree install --apply-live -y \
+            https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+            https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm || \
+        sudo rpm-ostree install -y \
+            https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+            https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    else
+        sudo dnf install -y \
+            https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+            https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    fi
 else
     echo "RPM Fusion is already enabled."
 fi
@@ -36,7 +42,7 @@ fi
 echo "==> Enabling Flathub repository..."
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
-echo "==> Installing rpm-ostree package overlays..."
+echo "==> Installing system packages..."
 to_install=()
 while read -r pkg; do
     # Skip comments and empty lines
@@ -48,11 +54,15 @@ done < "${SCRIPT_DIR}/packages/rpm-ostree.txt"
 
 if [ ${#to_install[@]} -gt 0 ]; then
     echo "Installing: ${to_install[*]}..."
-    sudo rpm-ostree install --apply-live -y "${to_install[@]}" || \
-    sudo rpm-ostree install -y "${to_install[@]}"
-    echo "NOTE: Some overlays require a reboot to be fully active."
+    if command -v rpm-ostree &>/dev/null; then
+        sudo rpm-ostree install --apply-live -y "${to_install[@]}" || \
+        sudo rpm-ostree install -y "${to_install[@]}"
+        echo "NOTE: Some overlays require a reboot to be fully active."
+    else
+        sudo dnf install -y "${to_install[@]}"
+    fi
 else
-    echo "All rpm-ostree packages are already layered."
+    echo "All system packages are already installed."
 fi
 
 echo "==> Installing Flatpaks..."
@@ -74,14 +84,22 @@ echo "==> Installing Homebrew developer packages..."
 brew install mise uv just direnv
 
 echo "==> Configuring automatic updates..."
-# Configure rpm-ostreed automatic updates (stage on check)
-if [ -f /etc/rpm-ostreed.conf ]; then
-    if ! grep -q "AutomaticUpdatePolicy=stage" /etc/rpm-ostreed.conf; then
-        sudo sed -i 's/#AutomaticUpdatePolicy=none/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf
-        sudo sed -i 's/AutomaticUpdatePolicy=none/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf
+if command -v rpm-ostree &>/dev/null; then
+    # Configure rpm-ostreed automatic updates (stage on check)
+    if [ -f /etc/rpm-ostreed.conf ]; then
+        if ! grep -q "AutomaticUpdatePolicy=stage" /etc/rpm-ostreed.conf; then
+            sudo sed -i 's/#AutomaticUpdatePolicy=none/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf
+            sudo sed -i 's/AutomaticUpdatePolicy=none/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf
+        fi
     fi
+    sudo systemctl enable --now rpm-ostreed-automatic.timer
+else
+    # Configure dnf-automatic for standard Fedora
+    if ! rpm -q dnf-automatic &>/dev/null; then
+        sudo dnf install -y dnf-automatic
+    fi
+    sudo systemctl enable --now dnf-automatic.timer
 fi
-sudo systemctl enable --now rpm-ostreed-automatic.timer
 
 # Create systemd user timer for Flatpak auto-updates
 mkdir -p ~/.config/systemd/user

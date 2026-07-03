@@ -1,5 +1,5 @@
 # Flatpaks for Fedora Kinoite
-com.usecursor.Cursor
+# com.usecursor.Cursor (Note: Cursor is not available on Flathub; install manually)
 md.obsidian.Obsidian
 org.mozilla.firefox
 com.valvesoftware.Steam

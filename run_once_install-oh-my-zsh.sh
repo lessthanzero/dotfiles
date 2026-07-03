@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # chezmoi run_once: Oh My Zsh + Powerlevel10k
 set -euo pipefail
-SOURCE="$(chezmoi source-path)"
+SOURCE="${CHEZMOI_SOURCE_DIR}"
 bash "${SOURCE}/scripts/install-omz-p10k.sh"
