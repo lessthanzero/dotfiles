@@ -1,85 +1,84 @@
-1Password 7.app
-1Password.app.zip
+1Password.app
+1Password for Safari.app
 Affinity Designer.app
 AirBuddy.app
-Alfred 3.app
-Alfred 4.app
-Aperture.app
-Apple Configurator 2.app
-Apple Events.app
+Antigravity.app
+Apple Configurator.app
 Arq.app
-Backblaze.app
-Beats Updater.app
-Cardhop.app
-Coda 2.app
+Bartender 4.app
+Bitwarden.app
+Brave Browser.app
+Canary Mail.app
+ChatGPT.app
+Codex.app
+Cursor.app
 Day One.app
-Deliveries.app
+Deliveries.localized
+Downie 4.app
 Droplr.app
-DxOOpticsProForPhotos.app
+Eagle.app
+Eagle for Safari.app
 Figma.app
-Final Cut Pro.app
-Framer X Beta.app
-Framer.app
-FruitJuice.app
-Game Center.app
-GarageBand.app
+Firefox Developer Edition.app
+Flacon.app
 Google Chrome.app
-Hyper.app
+Granola.app
+Hand Mirror.app
+HandBrake.app
+HomePass.app
 IINA.app
 ImageOptim.app
-Keynote.app
-Little Snitch Configuration.app
-Logic Pro X.app
-MAXON
-Mactracker.app
-Micro Snitch.app
-Noto.app
-Now.app
-Numbers.app
-Numi.app
-OpenEmu.app
-Pages.app
-Parallels Desktop.app
-Parallels Toolbox.app
-Pixelmator Pro.app
-Pixelmator.app
-PodcastMenu.app
-Principle.app
-Private Internet Access.app
-Processing.app
-Reeder.app
-Reeder.localized
-SF Symbols.app
-Safari.app
-Screenflick.app
-Sensei.app
-Sketch.app
-Slack.app
-Rectangle.app
-Snap Camera.app
-Soulver 3.app
-Spotify.app
-SympliPlugin
-Telegram.localized
-Things3.app
-Transmission.app
-Transmit.app
-Tunnelblick.app
-Tweetbot.localized
-Utilities
-Versions.app
-Visual Studio Code.app
-WWDC.app
-WhatsApp.app
-balenaEtcher.app
-coconutBattery.app
-duet.app
 iA Writer.app
-iDVD.app
 iMazing.app
-iMovie 9.0
-iMovie.app
-iPhoto.app
+iOS App Signer.app
 iTerm.app
-iWeb.app
+Karabiner-Elements.app
+Karabiner-EventViewer.app
+Keynote.app
+kitty.app
+Labelnize.app
+LibreOffice.app
+Lidarr.app
+LocalSend.app
+Linear.app
+Logseq.app
+Mactracker.app
+Marta.app
+Meta.app
+Notenik.app
+Numbers.app
+OBS.app
+Obsidian.app
+OnyX.app
+Pages.app
+Paper.app
+Pixelmator Pro.app
+Plex.app
+Private Internet Access.app
+Qfinder Pro.app
+Radarr.app
+Raspberry Pi Imager.app
+Raycast.app
+Rectangle.app
+Reeder.app
+RustDesk.app
+Sensei.app
+SF Symbols.app
+Sketch.app
+Sonarr.app
+Soulver 3.app
+Stats.app
+Swift Playground.app
+Tailscale.app
+Telegram.app
+TestFlight.app
+The Unarchiver.app
+Things3.app
+Transmit.app
+Visual Studio Code - Insiders.app
+VMware Fusion.app
+Xcode.app
+balenaEtcher.app
+calibre.app
+coconutBattery.app
 zoom.us.app

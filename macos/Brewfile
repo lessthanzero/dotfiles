@@ -47,6 +47,7 @@ cask "metasploit"
 
 # Casks - File sharing
 cask "transmission"
+cask "localsend"
 
 # Casks - Fonts
 cask "font-fira-code"
