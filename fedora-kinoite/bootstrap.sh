@@ -196,6 +196,11 @@ systemctl --user enable --now open-webui.service
 echo "==> Setting up Oh My Zsh + Powerlevel10k..."
 bash "${SCRIPT_DIR}/../scripts/install-omz-p10k.sh"
 
+echo "==> Changing default login shell to Zsh..."
+if [ "${SHELL}" != "$(command -v zsh)" ]; then
+    chsh -s "$(command -v zsh)"
+fi
+
 echo "==> Applying chezmoi dotfiles..."
 if command -v chezmoi &>/dev/null; then
     chezmoi apply --force
