@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Update D-Bus and Systemd Environment
+Comment=Pass DISPLAY and session variables to D-Bus and systemd user environment for Steam Flatpak
+Exec=dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP DESKTOP_SESSION
+Terminal=false
+NoDisplay=true

@@ -106,6 +106,24 @@ else
 fi
 
 echo ""
+echo "==> D-Bus & Systemd User Environment (Steam Flatpak)"
+if command -v dbus-update-activation-environment >/dev/null 2>&1; then
+  ok "dbus-update-activation-environment"
+  if [[ -f "${HOME}/.config/autostart/dbus-update-activation-env.desktop" ]]; then
+    ok "autostart dbus-update-activation-env.desktop"
+  else
+    warn "autostart dbus-update-activation-env.desktop missing (chezmoi apply?)"
+  fi
+  if [[ -f "${HOME}/.xprofile" ]]; then
+    ok ".xprofile present"
+  else
+    warn ".xprofile missing (chezmoi apply?)"
+  fi
+else
+  warn "dbus-update-activation-environment missing"
+fi
+
+echo ""
 if [[ "$FAIL" -eq 0 ]]; then
   echo "All required checks passed."
 else

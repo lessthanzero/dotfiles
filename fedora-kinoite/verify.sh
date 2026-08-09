@@ -78,6 +78,19 @@ else
 fi
 
 echo ""
+echo "==> D-Bus & Systemd User Environment (Steam Flatpak requirement)"
+if command -v dbus-update-activation-environment &>/dev/null; then
+    ok "dbus-update-activation-environment CLI is available"
+    if [ -f "${HOME}/.config/autostart/dbus-update-activation-env.desktop" ]; then
+        ok "XDG Autostart entry for D-Bus environment update present"
+    else
+        warn "XDG Autostart entry for D-Bus environment update missing (run chezmoi apply)"
+    fi
+else
+    warn "dbus-update-activation-environment tool not found"
+fi
+
+echo ""
 echo "==> Plasma / KDE version coherence"
 if command -v verify-plasma-versions.sh &>/dev/null; then
     verify-plasma-versions.sh || FAIL=1

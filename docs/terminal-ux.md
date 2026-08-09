@@ -41,6 +41,7 @@ Shared pieces: **tmux**, **Kitty** (default terminal on Linux Mint/XFCE), **inte
 - **APT list**: [`linux-mint/mint-apt-cli.txt`](../linux-mint/mint-apt-cli.txt) — same packages as copy-paste reference.
 - **Shell**: **bash** → [`dot_bashrc`](../dot_bashrc) (Starship + Mint `command-not-found`). **zsh** → [`dot_zshrc`](../dot_zshrc) + **Powerlevel10k**.
 - **Autostart / stalling login**: entries under `~/.config/autostart/` that point to missing AppImages, moved paths, or broken `Exec=` lines (VPN clients like Outline, cloud sync, etc.) can hang or slow the session and flood logs. Inspect with `ls ~/.config/autostart/`, open each `.desktop` file, and remove or fix stale entries. Paths with spaces or non-ASCII directory names are easy to break—quote `Exec=` correctly or use wrappers.
+- **Steam Flatpak / D-Bus session activation**: [`dot_config/autostart/dbus-update-activation-env.desktop`](../dot_config/autostart/dbus-update-activation-env.desktop) and [`dot_xprofile`](../dot_xprofile) automatically execute `dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP DESKTOP_SESSION` during desktop startup to pass session variables into D-Bus activation and `systemd --user` environments.
 
 ### XFCE (Linux Mint / Ubuntu XFCE), optional
 

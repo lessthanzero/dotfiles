@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Update D-Bus session bus and systemd --user activation environment for Flatpak apps (Steam, etc.)
+if command -v dbus-update-activation-environment >/dev/null 2>&1; then
+    dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP DESKTOP_SESSION 2>/dev/null || \
+    dbus-update-activation-environment DISPLAY 2>/dev/null
+fi
