@@ -19,7 +19,7 @@ Comment[pt_PT]=Aplicação para organizar e executar jogos no Steam
 Comment[pl]=Aplikacja do zarządzania i uruchamiania gier na platformie Steam
 Comment[ro]=Aplicație pentru administrarea și jucatul jocurilor pe Steam
 Comment[ru]=Приложение для игр и управления играми в Steam
-Comment[es]=Aplicación para administrar y ejecutar juegos en Steam
+Comment[es]=Aplicación para administrar и ejecutar juegos en Steam
 Comment[sv]=Ett program för att hantera samt spela spel på Steam
 Comment[zh_CN]=管理和进行 Steam 游戏的应用程序
 Comment[zh_TW]=管理並執行 Steam 遊戲的應用程式
@@ -27,7 +27,7 @@ Comment[th]=โปรแกรมสำหรับจัดการและ�
 Comment[tr]=Steam üzerinden oyun oynama ve düzenleme uygulaması
 Comment[uk]=Програма для керування іграми та запуску ігор у Steam
 Comment[vi]=Ứng dụng để quản lý και chơi trò chơi trên Steam
-Exec=env DISPLAY=${DISPLAY:-:0} /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam --file-forwarding com.valvesoftware.Steam @@u %U @@
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam --file-forwarding com.valvesoftware.Steam @@u %U @@
 Icon=com.valvesoftware.Steam
 Terminal=false
 Type=Application
@@ -42,36 +42,36 @@ X-Flatpak=com.valvesoftware.Steam
 
 [Desktop Action Store]
 Name=Store
-Exec=env DISPLAY=${DISPLAY:-:0} /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://store
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://store
 
 [Desktop Action Community]
 Name=Community
-Exec=env DISPLAY=${DISPLAY:-:0} /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://url/CommunityHome/
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://url/CommunityHome/
 
 [Desktop Action Library]
 Name=Library
-Exec=env DISPLAY=${DISPLAY:-:0} /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/games
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/games
 
 [Desktop Action Servers]
 Name=Servers
-Exec=env DISPLAY=${DISPLAY:-:0} /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/servers
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/servers
 
 [Desktop Action Screenshots]
 Name=Screenshots
-Exec=env DISPLAY=${DISPLAY:-:0} /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/screenshots
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/screenshots
 
 [Desktop Action News]
 Name=News
-Exec=env DISPLAY=${DISPLAY:-:0} /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://openurl/https://store.steampowered.com/news
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://openurl/https://store.steampowered.com/news
 
 [Desktop Action Settings]
 Name=Settings
-Exec=env DISPLAY=${DISPLAY:-:0} /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/settings
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/settings
 
 [Desktop Action BigPicture]
 Name=Big Picture
-Exec=env DISPLAY=${DISPLAY:-:0} /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/bigpicture
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/bigpicture
 
 [Desktop Action Friends]
 Name=Friends
-Exec=env DISPLAY=${DISPLAY:-:0} /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/friends
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/friends

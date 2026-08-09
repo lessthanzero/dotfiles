@@ -1,0 +1,17 @@
+[Unit]
+Description=Xwayland X11 Display Server
+Documentation=man:Xwayland(1)
+After=graphical-session.target
+
+[Service]
+Type=simple
+Environment=DISPLAY=:0
+Environment=WAYLAND_DISPLAY=wayland-0
+ExecStartPre=/usr/bin/python3 -c "import os; os.remove('/tmp/.X11-unix/X0') if os.path.exists('/tmp/.X11-unix/X0') else None"
+ExecStart=/usr/bin/Xwayland :0 -ac
+ExecStartPost=/bin/sh -c "sleep 0.5 && /usr/bin/xhost +SI:localuser:%u 2>/dev/null || true"
+Restart=always
+RestartSec=1s
+
+[Install]
+WantedBy=default.target
