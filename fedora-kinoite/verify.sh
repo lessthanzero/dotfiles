@@ -86,6 +86,18 @@ if command -v dbus-update-activation-environment &>/dev/null; then
     else
         warn "XDG Autostart entry for D-Bus environment update missing (run chezmoi apply)"
     fi
+    if [ -f "${HOME}/.config/plasma-workspace/env/steam-dbus-env.sh" ]; then
+        ok "KDE Plasma workspace env hook present"
+    else
+        warn "KDE Plasma workspace env hook missing (run chezmoi apply)"
+    fi
+    if command -v flatpak &>/dev/null && flatpak info com.valvesoftware.Steam &>/dev/null; then
+        if flatpak run --command=bash com.valvesoftware.Steam -c "/home/sashakatin/.var/app/com.valvesoftware.Steam/.local/share/Steam/ubuntu12_32/steam-runtime/amd64/usr/bin/steam-runtime-check-requirements" &>/dev/null; then
+            ok "Steam Flatpak requirements check passed (Exit Code 0)"
+        else
+            warn "Steam Flatpak requirements check returned non-zero (flatpak-portal.service needs restart?)"
+        fi
+    fi
 else
     warn "dbus-update-activation-environment tool not found"
 fi
