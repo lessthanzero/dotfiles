@@ -27,7 +27,7 @@ Comment[th]=โปรแกรมสำหรับจัดการและ�
 Comment[tr]=Steam üzerinden oyun oynama ve düzenleme uygulaması
 Comment[uk]=Програма для керування іграми та запуску ігор у Steam
 Comment[vi]=Ứng dụng để quản lý και chơi trò chơi на Steam
-Exec=env DISPLAY=:0 STEAM_FORCE_DESKTOPUI_SCALING=1.5 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam --file-forwarding com.valvesoftware.Steam @@u %U @@ -forcedesktopscaling 1.5 -cef-disable-gpu steam://open/main
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam --file-forwarding com.valvesoftware.Steam @@u %U @@
 Icon=com.valvesoftware.Steam
 Terminal=false
 Type=Application
@@ -42,36 +42,36 @@ X-Flatpak=com.valvesoftware.Steam
 
 [Desktop Action Store]
 Name=Store
-Exec=env DISPLAY=:0 STEAM_FORCE_DESKTOPUI_SCALING=1.5 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://store -forcedesktopscaling 1.5 -cef-disable-gpu
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://store
 
 [Desktop Action Community]
 Name=Community
-Exec=env DISPLAY=:0 STEAM_FORCE_DESKTOPUI_SCALING=1.5 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://url/CommunityHome/ -forcedesktopscaling 1.5 -cef-disable-gpu
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://url/CommunityHome/
 
 [Desktop Action Library]
 Name=Library
-Exec=env DISPLAY=:0 STEAM_FORCE_DESKTOPUI_SCALING=1.5 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/games -forcedesktopscaling 1.5 -cef-disable-gpu
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/games
 
 [Desktop Action Servers]
 Name=Servers
-Exec=env DISPLAY=:0 STEAM_FORCE_DESKTOPUI_SCALING=1.5 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/servers -forcedesktopscaling 1.5 -cef-disable-gpu
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/servers
 
 [Desktop Action Screenshots]
 Name=Screenshots
-Exec=env DISPLAY=:0 STEAM_FORCE_DESKTOPUI_SCALING=1.5 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/screenshots -forcedesktopscaling 1.5 -cef-disable-gpu
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/screenshots
 
 [Desktop Action News]
 Name=News
-Exec=env DISPLAY=:0 STEAM_FORCE_DESKTOPUI_SCALING=1.5 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://openurl/https://store.steampowered.com/news -forcedesktopscaling 1.5 -cef-disable-gpu
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://openurl/https://store.steampowered.com/news
 
 [Desktop Action Settings]
 Name=Settings
-Exec=env DISPLAY=:0 STEAM_FORCE_DESKTOPUI_SCALING=1.5 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/settings -forcedesktopscaling 1.5 -cef-disable-gpu
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/settings
 
 [Desktop Action BigPicture]
 Name=Big Picture
-Exec=env DISPLAY=:0 STEAM_FORCE_DESKTOPUI_SCALING=1.5 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/bigpicture -forcedesktopscaling 1.5 -cef-disable-gpu
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/bigpicture
 
 [Desktop Action Friends]
 Name=Friends
-Exec=env DISPLAY=:0 STEAM_FORCE_DESKTOPUI_SCALING=1.5 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/friends -forcedesktopscaling 1.5 -cef-disable-gpu
+Exec=env DISPLAY=:0 /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=/app/bin/steam com.valvesoftware.Steam steam://open/friends
