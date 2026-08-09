@@ -78,6 +78,16 @@ else
 fi
 
 echo ""
+echo "==> Plasma / KDE version coherence"
+if command -v verify-plasma-versions.sh &>/dev/null; then
+    verify-plasma-versions.sh || FAIL=1
+elif [ -f "${SCRIPT_DIR}/scripts/verify-plasma-versions.sh" ]; then
+    bash "${SCRIPT_DIR}/scripts/verify-plasma-versions.sh" || FAIL=1
+else
+    warn "verify-plasma-versions.sh not found, skipping Plasma checks"
+fi
+
+echo ""
 if [[ "$FAIL" -eq 0 ]]; then
     echo "============================================="
     echo "All required checks passed successfully!"

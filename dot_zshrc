@@ -200,5 +200,10 @@ fi
 # Powerlevel10k config (chezmoi: dot_p10k.zsh). Regenerate with: p10k configure
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# Fedora KDE: coupled Plasma/KF6 upgrades (see vault ops/fedora-kde-updates)
+if [[ -f /etc/fedora-release ]] && command -v plasma-safe-upgrade &>/dev/null; then
+  alias dnfupgrade='plasma-safe-upgrade'
+fi
+
 # Secrets and local overrides (not in git): e.g. HOMEBREW_GITHUB_API_TOKEN
 [[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"

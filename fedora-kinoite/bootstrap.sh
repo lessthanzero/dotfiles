@@ -94,12 +94,21 @@ if command -v rpm-ostree &>/dev/null; then
     fi
     sudo systemctl enable --now rpm-ostreed-automatic.timer
 else
-    # Configure dnf-automatic for standard Fedora
+    # Configure dnf-automatic for standard Fedora (download-only; apply with plasma-safe-upgrade)
     if ! rpm -q dnf-automatic &>/dev/null; then
         sudo dnf install -y dnf-automatic
     fi
+    sudo cp "${SCRIPT_DIR}/../root/etc/dnf/automatic.conf" /etc/dnf/automatic.conf
     sudo systemctl enable --now dnf-automatic.timer
 fi
+
+echo "==> Installing Plasma safe-upgrade scripts..."
+sudo install -m 0755 "${SCRIPT_DIR}/scripts/plasma-safe-upgrade.sh" /usr/local/bin/plasma-safe-upgrade
+sudo install -m 0755 "${SCRIPT_DIR}/scripts/verify-plasma-versions.sh" /usr/local/bin/verify-plasma-versions.sh
+
+echo "==> Ensuring /tmp/.X11-unix persists across reboots..."
+sudo cp "${SCRIPT_DIR}/../root/etc/tmpfiles.d/x11-unix.conf" /etc/tmpfiles.d/x11-unix.conf
+sudo systemd-tmpfiles --create /etc/tmpfiles.d/x11-unix.conf
 
 # Create systemd user timer for Flatpak auto-updates
 mkdir -p ~/.config/systemd/user
@@ -217,5 +226,6 @@ echo "Next steps:"
 echo "  1. If any packages were layered, reboot the system."
 echo "  2. Run 'sudo tailscale up' to connect to your Tailnet."
 echo "  3. Verify services using: bash fedora-kinoite/verify.sh"
-echo "  4. Access Open WebUI at http://localhost:3000"
+echo "  4. Apply system updates with: plasma-safe-upgrade (never: dnf upgrade -y kf6-* alone)"
+echo "  5. Access Open WebUI at http://localhost:3000"
 echo "============================================="
