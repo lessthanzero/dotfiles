@@ -205,5 +205,15 @@ if [[ -f /etc/fedora-release ]] && command -v plasma-safe-upgrade &>/dev/null; t
   alias dnfupgrade='plasma-safe-upgrade'
 fi
 
+# Agent skills — shell fallbacks (see vault ops/agent-skills)
+_agent_scripts="${HOME}/Developer/dotfiles/scripts/agent"
+if [[ -d "$_agent_scripts" ]]; then
+  alias update-pc="${_agent_scripts}/update-pc.sh"
+  alias sync-repos="${_agent_scripts}/sync-repos.sh"
+  alias sync-vault="${_agent_scripts}/sync-vault.sh"
+  alias homelab-health="${_agent_scripts}/homelab-health.sh"
+fi
+unset _agent_scripts
+
 # Secrets and local overrides (not in git): e.g. HOMEBREW_GITHUB_API_TOKEN
 [[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"

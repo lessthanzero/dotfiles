@@ -1,0 +1,54 @@
+# Canonical agent skills catalog. Source: dotfiles/skills/
+# Deployed by scripts/deploy-agent-skills.sh to all runtimes below.
+
+deploy_targets:
+  cursor: ~/.cursor/skills
+  antigravity: ~/.gemini/config/skills
+  codex: ~/.codex/skills
+  claude_code: ~/.claude/skills
+
+skills:
+  - name: memorise-vault
+    script: scripts/agent/sync-vault.sh
+    triggers:
+      - memorise
+      - memorise knowledge
+
+  - name: update-pc
+    script: scripts/agent/update-pc.sh
+    triggers:
+      - update pc
+      - update linux
+      - update remote pc
+
+  - name: sync-repos
+    script: scripts/agent/sync-repos.sh
+    triggers:
+      - sync repos
+      - pull all repos
+
+  - name: homelab-health
+    script: scripts/agent/homelab-health.sh
+    triggers:
+      - homelab health
+      - check pc
+      - is fedora up
+
+  - name: sync-vault
+    script: scripts/agent/sync-vault.sh
+    triggers:
+      - sync vault
+      - push vault
+    mac_only: true
+
+  - name: network-baseline
+    script: scripts/agent/network-baseline.sh
+    triggers:
+      - network audit
+      - network baseline
+
+  - name: local-models-health
+    script: scripts/agent/local-models-health.sh
+    triggers:
+      - check ollama
+      - local models health

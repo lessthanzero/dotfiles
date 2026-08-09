@@ -22,6 +22,16 @@ chezmoi init --apply git@github.com:lessthanzero/dotfiles.git
 
 Later, refresh from git: `chezmoi update && chezmoi apply`, or `git pull` inside `$(chezmoi source-path)` (often `~/.local/share/chezmoi`) then `chezmoi apply`.
 
+### Agent skills (Cursor, Antigravity, Codex, Claude Code)
+
+Canonical skills: [`skills/`](skills/) — deployed to `~/.cursor/skills/`, `~/.gemini/config/skills/`, `~/.codex/skills/`, `~/.claude/skills/` by:
+
+```bash
+scripts/deploy-agent-skills.sh
+```
+
+Runs automatically via `run_onchange_deploy-agent-skills.sh` on `chezmoi apply`. See vault `ops/agent-skills.md` for trigger phrases.
+
 [`macos/install.sh`](macos/install.sh) runs `brew bundle`, Oh My Zsh + Powerlevel10k ([`scripts/install-omz-p10k.sh`](scripts/install-omz-p10k.sh)); **chezmoi users** should run **`chezmoi apply`** separately after pointing chezmoi at this repo.
 
 ### By platform

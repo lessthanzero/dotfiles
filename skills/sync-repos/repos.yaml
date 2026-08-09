@@ -1,0 +1,7 @@
+repos:
+  - ~/Developer/dotfiles
+  - ~/Developer/vault-mirror
+  - ~/Developer/home-network-topology
+  - ~/Developer/local-models
+  - ~/Developer/personal-tools
+mode: pull-only
