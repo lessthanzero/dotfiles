@@ -56,6 +56,7 @@ plugins=(git extract node npm)
 
 # User configuration
 
+export DISPLAY="${DISPLAY:-:0}"
 export PATH="$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 

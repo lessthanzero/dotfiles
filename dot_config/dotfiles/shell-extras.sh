@@ -2,6 +2,9 @@
 # Non-interactive shells must not load this file's effects; guard is below.
 case $- in *i*) ;; *) return ;; esac
 
+# Default DISPLAY for Xwayland / Flatpak GUI apps
+export DISPLAY="${DISPLAY:-:0}"
+
 # bat: Debian/Ubuntu package often installs `batcat`; Arch/macOS use `bat`.
 if command -v bat >/dev/null 2>&1; then
   alias cat='bat --paging=never'
