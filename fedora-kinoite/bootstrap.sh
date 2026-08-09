@@ -95,11 +95,12 @@ if command -v rpm-ostree &>/dev/null; then
     sudo systemctl enable --now rpm-ostreed-automatic.timer
 else
     # Configure dnf-automatic for standard Fedora (download-only; apply with plasma-safe-upgrade)
-    if ! rpm -q dnf-automatic &>/dev/null; then
-        sudo dnf install -y dnf-automatic
+    if ! rpm -q dnf5-plugin-automatic &>/dev/null && ! rpm -q dnf-automatic &>/dev/null; then
+        sudo dnf install -y dnf5-plugin-automatic || sudo dnf install -y dnf-automatic
     fi
     sudo cp "${SCRIPT_DIR}/../root/etc/dnf/automatic.conf" /etc/dnf/automatic.conf
-    sudo systemctl enable --now dnf-automatic.timer
+    sudo systemctl enable --now dnf5-automatic.timer 2>/dev/null || \
+        sudo systemctl enable --now dnf-automatic.timer
 fi
 
 echo "==> Installing Plasma safe-upgrade scripts..."
