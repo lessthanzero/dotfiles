@@ -25,6 +25,9 @@ for skill_dir in "$SOURCE"/*/; do
   for target in "${TARGETS[@]}"; do
     mkdir -p "${target}/${name}"
     cp "${skill_dir}SKILL.md" "${target}/${name}/SKILL.md"
+    if [[ -f "${skill_dir}reference.md" ]]; then
+      cp "${skill_dir}reference.md" "${target}/${name}/reference.md"
+    fi
     if [[ -d "${skill_dir}scripts" ]]; then
       rm -rf "${target}/${name}/scripts"
       cp -R "${skill_dir}scripts" "${target}/${name}/"
