@@ -75,9 +75,24 @@ else
 fi
 
 echo ""
+echo "==> kwin_wayland environment & override"
+if systemctl --user show-environment 2>/dev/null | grep -q '^WAYLAND_DISPLAY='; then
+  fail "WAYLAND_DISPLAY leaked into systemd --user environment — run: systemctl --user unset-environment WAYLAND_DISPLAY"
+else
+  ok "systemd --user environment clean (no WAYLAND_DISPLAY leak)"
+fi
+
+if [[ -f "$HOME/.config/systemd/user/plasma-kwin_wayland.service.d/override.conf" || -f "/etc/systemd/user/plasma-kwin_wayland.service.d/override.conf" ]]; then
+  ok "plasma-kwin_wayland override.conf exists"
+else
+  warn "plasma-kwin_wayland override.conf missing"
+fi
+
+echo ""
 if [[ "$FAIL" -eq 0 ]]; then
   echo "Plasma version checks passed."
 else
   echo "Plasma version checks FAILED."
   exit 1
 fi
+

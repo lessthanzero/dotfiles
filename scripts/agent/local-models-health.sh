@@ -22,11 +22,13 @@ if [[ "$(hostname -s 2>/dev/null)" == "fedora" ]] || [[ -f /etc/fedora-release ]
 fi
 
 if ssh -o ConnectTimeout=5 -o BatchMode=yes pc 'echo ok' &>/dev/null; then
-  exec run_health pc
+  run_health pc
+  exit $?
 fi
 
 if ssh -o ConnectTimeout=5 -o BatchMode=yes pc-remote 'echo ok' &>/dev/null; then
-  exec run_health pc-remote
+  run_health pc-remote
+  exit $?
 fi
 
 echo "ERROR: cannot reach pc for local-models health" >&2
