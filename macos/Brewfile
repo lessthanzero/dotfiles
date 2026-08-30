@@ -32,6 +32,7 @@ cask "the-unarchiver"
 cask "docker"
 cask "docker-desktop"
 cask "cursor"
+cask "codex"
 
 # Casks - Media & Content
 cask "blender"
