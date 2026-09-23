@@ -53,6 +53,23 @@ skills:
       - check ollama
       - local models health
 
+  - name: flow-analyzer
+    script: scripts/agent/flow-analyzer.sh
+    triggers:
+      - analyze review
+      - flow analyzer
+      - run flow-analyzer
+      - snapshots
+      - flow steps
+
+  - name: local-models-usage
+    script: scripts/agent/local-models-usage.sh
+    triggers:
+      - model usage
+      - local models usage
+      - token usage
+      - local-models metrics
+
   - name: media-inventory-rate
     triggers:
       - rate movie
