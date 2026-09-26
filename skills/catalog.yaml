@@ -88,3 +88,14 @@ skills:
       - record rating
       - inventory rate
     mac_only: true
+
+  - name: ux-writing
+    triggers:
+      - ux writing
+      - microcopy
+      - write copy
+      - error message
+      - button copy
+      - инфостиль
+      - пиши сокращай
+      - ui text
