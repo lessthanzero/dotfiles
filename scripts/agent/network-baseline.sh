@@ -11,7 +11,8 @@ echo "This host: $MAC_IP"
 echo ""
 
 echo "==> Gateway ping"
-ping -c 3 "$GATEWAY" 2>/dev/null || echo "WARN: gateway unreachable"
+# macOS: -t is whole-run timeout (seconds); bare ping can spin forever if ICMP stalls.
+ping -c 3 -t 5 "$GATEWAY" 2>/dev/null || echo "WARN: gateway unreachable"
 
 echo ""
 echo "==> DNS via router"
@@ -20,7 +21,7 @@ dig @"$GATEWAY" google.com +time=2 +tries=1 2>/dev/null | tail -5 || echo "WARN:
 echo ""
 echo "==> Key hosts"
 for ip in 192.168.1.172 192.168.1.165 192.168.1.174; do
-  if ping -c 1 -W 1 "$ip" &>/dev/null; then
+  if ping -c 1 -t 2 "$ip" &>/dev/null; then
     echo "OK: $ip up"
   else
     echo "DOWN: $ip"

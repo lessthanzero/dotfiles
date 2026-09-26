@@ -32,3 +32,6 @@ if [ -x /usr/lib/command-not-found ]; then
 fi
 
 [[ -f "${HOME}/.bashrc.local" ]] && . "${HOME}/.bashrc.local"
+
+# User-local CLIs (Antigravity, cursor shim, etc.)
+[[ -d "${HOME}/.local/bin" ]] && export PATH="${HOME}/.local/bin:$PATH"

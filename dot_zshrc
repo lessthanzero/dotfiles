@@ -68,6 +68,12 @@ elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
+# Docker Desktop ships its CLI inside the bundle and only symlinks into
+# /usr/local/bin when granted privileges, which has not happened here.
+if [[ -d /Applications/Docker.app/Contents/Resources/bin ]]; then
+  export PATH="/Applications/Docker.app/Contents/Resources/bin:$PATH"
+fi
+
 # Flatpak aliases for CLI parity (e.g., Fedora Kinoite)
 if command -v flatpak >/dev/null 2>&1; then
   if ! command -v cursor >/dev/null 2>&1 && flatpak info com.usecursor.Cursor >/dev/null 2>&1; then
@@ -161,6 +167,14 @@ if [[ -o interactive ]] && command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init zsh)"
 fi
 
+# fzf (fuzzy finder)
+if [[ -o interactive ]] && command -v fzf >/dev/null 2>&1; then
+  source <(fzf --zsh 2>/dev/null) 2>/dev/null || true
+  export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+  export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers --line-range=:500 {}" 2>/dev/null || cat {}"'
+  export FZF_ALT_C_OPTS='--preview "eza --tree --level=2 {} 2>/dev/null || ls {}"'
+fi
+
 # Shared interactive aliases (bat/rg/fd/eza)
 if [[ -o interactive ]] && [[ -f "${HOME}/.config/dotfiles/shell-extras.sh" ]]; then
   # shellcheck source=/dev/null
@@ -217,3 +231,6 @@ unset _agent_scripts
 
 # Secrets and local overrides (not in git): e.g. HOMEBREW_GITHUB_API_TOKEN
 [[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
+
+# User-local CLIs (Antigravity, cursor shim, etc.)
+[[ -d "${HOME}/.local/bin" ]] && export PATH="${HOME}/.local/bin:$PATH"

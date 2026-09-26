@@ -70,6 +70,15 @@ skills:
       - token usage
       - local-models metrics
 
+  - name: consilium
+    script: scripts/agent/consilium.sh
+    triggers:
+      - consilium
+      - peer review
+      - ask the peers
+      - multi-model opinion
+      - council
+
   - name: media-inventory-rate
     triggers:
       - rate movie
