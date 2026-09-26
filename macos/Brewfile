@@ -12,7 +12,7 @@ brew "zoxide"
 brew "fzf"
 brew "chezmoi"
 brew "btop"
-brew "uv"
+# uv: install via https://astral.sh/uv (Homebrew formula pulls llvm@22 source builds on macOS 14)
 brew "rcm"
 brew "mas"
 
