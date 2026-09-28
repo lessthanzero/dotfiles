@@ -33,8 +33,9 @@ be reached, report that and use only an explicitly requested local workflow.
   `local-harness local --role general '…'` or `--role coding` there.
 - Kate's M3 Air can run local coding and general prompts offline. Its shared
   worker is available only when enabled, on AC, idle, and above its resource
-  floors. Do not include it in ordinary distributed routing unless the user
-  names it or explicitly asks for all available nodes.
+  floors. Include it in normal distributed routing when the coordinator reports
+  it online and its advertised profile supports the job. Its next worker poll
+  checks readiness again, so an online status is not a guarantee it will lease.
 - The old Air has no enabled harness worker. The Pis and QNAP are not compute
   workers.
 
@@ -48,12 +49,15 @@ in the queue view.
 Use `local-harness submit --type llm --prompt '…'` for a short prompt, or
 `--type text_stats --input-file FILE` for short text. Select `--role coding` or
 `general`, `--priority interactive|background|night|opportunistic`, and repeat
-`--allow-node NODE` for eligible nodes. An explicit request to use all nodes
-means **one job eligible for all ready supported workers**, not parallel or
-duplicate execution; the first eligible worker leases it. If this includes
-`macbook-mobile`, pass both `--allow-node macbook-mobile` and
-`--share-with-mobile`. That explicit request authorizes sending the input to
-Kate's machine. Without it, exclude that node.
+`--allow-node NODE` for eligible nodes. Include `macbook-mobile` when it is
+online, enabled, not busy or degraded, and supports the job; pass both
+`--allow-node macbook-mobile` and `--share-with-mobile` to authorize that route.
+The user's standing preference permits supported, non-secret text inputs to be
+shared with this node under those conditions. If it is unavailable, omit it.
+An explicit request to use all nodes means **one job eligible for all ready
+supported workers**, not parallel or duplicate execution; the first eligible
+worker leases it. Explain the selected eligible nodes, since the actual worker
+is determined only when a lease is taken.
 
 Do not put passwords, tokens, API keys, or apparent secrets in a job payload.
 Do not enable, disable, remove, or install workers as a side effect of routing.
