@@ -53,6 +53,16 @@ skills:
       - check ollama
       - local models health
 
+  - name: compute-fabric
+    triggers:
+      - what can I do with the nodes
+      - which node should handle this
+      - use local compute
+      - use the compute fabric
+      - use all available nodes
+      - offload this to Fedora
+      - run this prompt on Kate's Mac
+
   - name: flow-analyzer
     script: scripts/agent/flow-analyzer.sh
     triggers:
