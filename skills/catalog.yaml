@@ -119,3 +119,13 @@ skills:
       - mobile ergonomics
       - irene pereyra
 
+  - name: workbench
+    triggers:
+      - use workbench
+      - utilise workbench
+      - utilize workbench
+      - apply workbench
+      - /workbench
+      - workbench
+
+
