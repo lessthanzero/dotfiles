@@ -38,6 +38,7 @@ repos=(
   "${HOME}/Developer/hassio"
   "${HOME}/Developer/ancient-text-lab"
   "${HOME}/Developer/cipher-lab"
+  "${HOME}/Developer/workbench"
 )
 
 echo "==> Syncing repositories to Forgejo..."
