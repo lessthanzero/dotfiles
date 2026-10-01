@@ -59,6 +59,22 @@ Wrapper writes JSON (`ok` / `error` / `content` / latency per peer) and prints t
 - Do not claim a personalised soft-quote APR unless the user or a lookup provided it.
 - Stack down? Use skill `local-models-health` for Ollama; `agy` / `codex` / `agent` must be on PATH and signed in.
 
+### Local-first requests
+
+When the user asks for **local-first** review, begin with the local peer only:
+
+```bash
+~/Developer/dotfiles/scripts/agent/consilium.sh --peers qwen "…"
+```
+
+Check that local Ollama inference is reachable before treating the model as
+missing. If the local peer is unavailable, report the panel as incomplete and
+continue with source-based review. Do not automatically retry with `agy`,
+`codex`, or Cursor; wait for the user's direction unless the same request
+already permits a hosted fallback. If hosted peers are then authorized, state
+which context will leave the machine before sending it. Keep the default
+parallel panel for requests that do not specify local-first handling.
+
 ## Runtimes
 
 | Runtime | Invoke |

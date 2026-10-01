@@ -11,6 +11,8 @@ OUT=""
 CONTEXT_FILE=""
 PEERS="qwen,agy,codex"
 WITH_CURSOR=0
+MAX_CONTEXT_CHARS=16000
+ALLOW_LARGE_CONTEXT=0
 PROMPT_ARGS=()
 
 usage() {
@@ -19,17 +21,21 @@ Usage: consilium.sh [options] [prompt...]
        echo prompt | consilium.sh [options]
 
 Options:
-  --context FILE   Extra context prepended to the prompt
-  --peers LIST     Comma list: qwen,agy,codex,cursor (default: qwen,agy,codex)
-  --with-cursor    Append cursor peer (agent -p --mode ask)
-  --out PATH       Write JSON results (default: /tmp/consilium-<ts>.json)
-  -h, --help       Show help
+  --context FILE           Extra context prepended to the prompt
+  --max-context-chars NUM  Safety character cap for context (default: 16000, ~4k tokens)
+  --allow-large-context    Bypass safety cap and send full unbudgeted context
+  --peers LIST             Comma list: qwen,agy,codex,cursor (default: qwen,agy,codex)
+  --with-cursor            Append cursor peer (agent -p --mode ask)
+  --out PATH               Write JSON results (default: /tmp/consilium-<ts>.json)
+  -h, --help               Show help
 EOF
 }
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --context) CONTEXT_FILE="${2:-}"; shift 2 ;;
+    --max-context-chars) MAX_CONTEXT_CHARS="${2:-16000}"; shift 2 ;;
+    --allow-large-context) ALLOW_LARGE_CONTEXT=1; shift ;;
     --peers) PEERS="${2:-}"; shift 2 ;;
     --with-cursor) WITH_CURSOR=1; shift ;;
     --out) OUT="${2:-}"; shift 2 ;;
@@ -68,6 +74,13 @@ if [[ -n "$CONTEXT_FILE" ]]; then
     exit 2
   fi
   CONTEXT="$(cat "$CONTEXT_FILE")"
+  if [[ ${#CONTEXT} -gt "$MAX_CONTEXT_CHARS" && "$ALLOW_LARGE_CONTEXT" -eq 0 ]]; then
+    echo "NOTICE: Context (${#CONTEXT} chars) exceeds safety budget (${MAX_CONTEXT_CHARS} chars, ~4k tokens)." >&2
+    echo "        Truncating to ${MAX_CONTEXT_CHARS} chars to prevent cloud token burnout. Pass --allow-large-context to override." >&2
+    CONTEXT="${CONTEXT:0:$MAX_CONTEXT_CHARS}
+
+[... Context truncated by Consilium token safety budget (${MAX_CONTEXT_CHARS} chars) ...]"
+  fi
 fi
 
 if [[ -z "$OUT" ]]; then
