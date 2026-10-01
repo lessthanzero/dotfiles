@@ -1,0 +1,17 @@
+{
+  "project_name": "dotfiles",
+  "project_root": "/Users/sashakatin/Developer/dotfiles",
+  "profile": "general",
+  "stack": [],
+  "sovereignty": {
+    "policy": "open_personal",
+    "label": "STANDARD (Public / Multi-Remote)",
+    "forgejo_only": false
+  },
+  "entry_points": [],
+  "verification_commands": [],
+  "active_git_changes": [
+    "M .chezmoiignore",
+    "?? AGENTS.md"
+  ]
+}
