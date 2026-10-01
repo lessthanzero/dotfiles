@@ -229,6 +229,13 @@ if [[ -d "$_agent_scripts" ]]; then
 fi
 unset _agent_scripts
 
+# Workbench & Local AI CLI shortcuts
+alias recon="project-recon"
+alias compile-ctx="local-compiler"
+alias audit-ui="workbench-visual-audit"
+alias extract-tokens="design-extract"
+alias voice-brief="open -a /Users/sashakatin/Applications/VoiceBrief.app"
+
 # Secrets and local overrides (not in git): e.g. HOMEBREW_GITHUB_API_TOKEN
 [[ -f "${HOME}/.zshrc.local" ]] && source "${HOME}/.zshrc.local"
 
