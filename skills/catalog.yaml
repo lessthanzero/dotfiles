@@ -128,4 +128,16 @@ skills:
       - /workbench
       - workbench
 
+  - name: personal-voice
+    triggers:
+      - personal voice
+      - writing style
+      - pitch
+      - tone
+      - telegram pitch
+      - outreach
+      - groundwork
+      - sasha voice
+      - personal-voice
+
 
