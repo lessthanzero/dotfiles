@@ -2,6 +2,6 @@
 Type=Application
 Name=Update D-Bus and Systemd Environment
 Comment=Pass DISPLAY and session variables to D-Bus, systemd user environment, and flatpak-portal for Steam Flatpak
-Exec=sh -c 'export DISPLAY="${DISPLAY:-:0}"; dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP DESKTOP_SESSION 2>/dev/null; systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XAUTHORITY 2>/dev/null; systemctl --user restart flatpak-portal.service 2>/dev/null || true'
+Exec=sh -c 'export DISPLAY="${DISPLAY:-:0}"; systemctl --user unset-environment WAYLAND_DISPLAY 2>/dev/null; dbus-update-activation-environment --systemd DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP DESKTOP_SESSION 2>/dev/null; systemctl --user import-environment DISPLAY XAUTHORITY 2>/dev/null; systemctl --user restart flatpak-portal.service 2>/dev/null || true'
 Terminal=false
 NoDisplay=true
