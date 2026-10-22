@@ -9,7 +9,9 @@ LM="${HOME}/Developer/local-models"
 PT="${HOME}/Developer/personal-tools"
 OUT=""
 CONTEXT_FILE=""
-PEERS="qwen,agy,codex"
+# TEMP (agy quota): default third peer is local Bonsai MLX instead of Antigravity.
+# Restore to qwen,agy,codex when agy quota resets.
+PEERS="qwen,bonsai,codex"
 WITH_CURSOR=0
 MAX_CONTEXT_CHARS=16000
 ALLOW_LARGE_CONTEXT=0
@@ -24,7 +26,8 @@ Options:
   --context FILE           Extra context prepended to the prompt
   --max-context-chars NUM  Safety character cap for context (default: 16000, ~4k tokens)
   --allow-large-context    Bypass safety cap and send full unbudgeted context
-  --peers LIST             Comma list: qwen,agy,codex,cursor (default: qwen,agy,codex)
+  --peers LIST             Comma list: qwen,bonsai,mlx,agy,codex,cursor
+                           (default TEMP: qwen,bonsai,codex — bonsai stands in for agy)
   --with-cursor            Append cursor peer (agent -p --mode ask)
   --out PATH               Write JSON results (default: /tmp/consilium-<ts>.json)
   -h, --help               Show help
@@ -137,6 +140,9 @@ full_prompt = f"{format_block}\n\n{body}"
 SPECS = {
     "qwen": {"kind": "lm", "kwargs": {"provider": "ollama", "model": "qwen2.5:7b", "timeout": 120, "max_tokens": 900}},
     "agy": {"kind": "lm", "kwargs": {"provider": "antigravity", "model": "gemini-3.8-flash-medium", "timeout": 180, "max_tokens": 1100}},
+    # Local MLX stand-in for agy (Bonsai 2 27B). Alias: mlx → bonsai.
+    "bonsai": {"kind": "bonsai_mlx", "max_tokens": 1100, "timeout": 600},
+    "mlx": {"kind": "bonsai_mlx", "max_tokens": 1100, "timeout": 600},
     "codex": {"kind": "lm", "kwargs": {"role": "codex", "timeout": 240, "max_tokens": 1100}},
     "cursor": {"kind": "cursor"},
 }
@@ -149,6 +155,89 @@ client = None
 if any(SPECS[p]["kind"] == "lm" for p in peers):
     from local_models import get_client
     client = get_client()
+
+BONSAI_PY = Path.home() / "Developer/local-models/.venv-bonsai/bin/python"
+BONSAI_RUNNER = Path.home() / "Developer/local-models/scripts/run_bonsai_mlx.py"
+BONSAI_MODEL = "bonsai2-27b-mlx-2bit"
+
+
+def run_bonsai_mlx(name: str, max_tokens: int = 1100, timeout: int = 600) -> dict:
+    """Shell out to Bonsai's bundled MLX loader (not local_models provider API)."""
+    import tempfile
+
+    t0 = time.monotonic()
+    if not BONSAI_PY.is_file() or not BONSAI_RUNNER.is_file():
+        return {
+            "name": name,
+            "ok": False,
+            "model": BONSAI_MODEL,
+            "provider": "mlx",
+            "latency_s": round(time.monotonic() - t0, 1),
+            "content": "",
+            "error": f"Bonsai MLX missing ({BONSAI_PY} / {BONSAI_RUNNER})",
+        }
+    prompt_path = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w", encoding="utf-8", prefix="consilium-bonsai-", suffix=".txt", delete=False
+        ) as fh:
+            fh.write(f"{system}\n\n{full_prompt}")
+            prompt_path = fh.name
+        proc = subprocess.run(
+            [
+                str(BONSAI_PY),
+                str(BONSAI_RUNNER),
+                "--prompt-file",
+                prompt_path,
+                "--max-tokens",
+                str(max_tokens),
+                "--temperature",
+                "0.0",
+            ],
+            stdin=subprocess.DEVNULL,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+        raw = (proc.stdout or "").strip()
+        if proc.returncode != 0:
+            err = (proc.stderr or raw or f"exit {proc.returncode}").strip()
+            return {
+                "name": name,
+                "ok": False,
+                "model": BONSAI_MODEL,
+                "provider": "mlx",
+                "latency_s": round(time.monotonic() - t0, 1),
+                "content": "",
+                "error": err[:2000],
+            }
+        payload = json.loads(raw)
+        text = (payload.get("text") or "").strip()
+        return {
+            "name": name,
+            "ok": bool(text),
+            "model": BONSAI_MODEL,
+            "provider": "mlx",
+            "latency_s": round(time.monotonic() - t0, 1),
+            "content": text,
+            "error": None if text else "empty bonsai response",
+        }
+    except Exception as e:
+        return {
+            "name": name,
+            "ok": False,
+            "model": BONSAI_MODEL,
+            "provider": "mlx",
+            "latency_s": round(time.monotonic() - t0, 1),
+            "content": "",
+            "error": str(e),
+        }
+    finally:
+        if prompt_path:
+            try:
+                Path(prompt_path).unlink(missing_ok=True)
+            except OSError:
+                pass
 
 
 def run_lm(name: str, kwargs: dict) -> dict:
@@ -243,6 +332,8 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, len(peers))) as po
         spec = SPECS[name]
         if spec["kind"] == "lm":
             futs[pool.submit(run_lm, name, spec["kwargs"])] = name
+        elif spec["kind"] == "bonsai_mlx":
+            futs[pool.submit(run_bonsai_mlx, name, spec.get("max_tokens", 1100), spec.get("timeout", 600))] = name
         else:
             futs[pool.submit(run_cursor, name)] = name
     for fut in concurrent.futures.as_completed(futs):
