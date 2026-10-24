@@ -33,10 +33,10 @@ No app-specific profile was added. App restart was tested: the Lift reconnected 
 ## Fedora PC configuration status
 
 - Host: Fedora Linux 44, KDE Plasma 6.7.5, Wayland.
-- The Lift (`046D:B031`) is paired with Fedora but was disconnected during inspection. Fedora reports no Solaar installation. The official Fedora repository offers Solaar 1.1.20 and its `solaar-udev` rules package.
-- Proposed equivalent mappings: keep Back and Forward native; map Top/DPI to KDE Overview (`Meta+W`) and Wheel Click to Present Windows for the current application (`Ctrl+F7`, similar to App Exposé). The current Plasma shortcut file confirms both bindings.
-- No Fedora package, device mapping, or udev rule has been installed. Solaar rules on Wayland need permission to access the Logitech HID++ interface and `/dev/uinput` to emit those shortcuts. The inspected upstream rule grants the active user raw access to Logitech HID devices and write access to `/dev/uinput`; this permits input injection and needs explicit approval. The current `/dev/uinput` node is root-only, and admin authentication is required to install the system package/rule.
-- Fedora validation is pending Solaar installation, approval of the udev access rule, and connecting the mouse on its Fedora Easy-Switch channel.
+- Fedora sees the Lift (`046D:B031`) connected over Bluetooth LE. `solaar show` identifies HID++ 4.5, model `B03100000000`, firmware `RBM 21.01.B0010`, and the `REPROG CONTROLS V4` feature. It exposes seven controls: left/right click, middle (wheel) click, Back, Forward, DPI Switch, and a virtual gesture button. Back, Forward, middle click, and DPI Switch are divertable; primary/secondary click and scroll remain ordinary HID controls.
+- Installed Fedora packages: Solaar `1.1.20-1.fc44` and `solaar-udev` `1.1.20-1.fc44`. The upstream udev rule grants the logged-in user raw access to Logitech HID devices and permission to inject input through `/dev/uinput`. This was approved. Solaar can read the mouse, but `/dev/uinput` still has no user ACL because the rule has not yet been reapplied after installation.
+- Prepared system-wide equivalent mappings: leave Back and Forward native; Top/DPI → KDE Overview (`Meta+W`); Wheel Click → Present Windows for the current application (`Ctrl+F7`, similar to App Exposé, replacing middle click). Fedora's active Plasma shortcut settings confirm these bindings. The rules are saved in `~/.config/solaar/rules.yaml`; before changing Solaar's diversion settings, the udev rule must be applied and Solaar started in the graphical session.
+- Backup of Solaar's existing device settings: `~/.config/solaar/config.yaml.before-remap-2026-10-24`. The previous rules file was absent. Fedora button actions, sleep/wake, Bluetooth reconnection, and Solaar restart have not yet been tested.
 
 ## Permissions and limits
 
