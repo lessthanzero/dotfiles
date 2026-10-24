@@ -1,4 +1,4 @@
-# Logitech mouse remapping on this Mac
+# Logitech Lift remapping on macOS and Fedora
 
 Updated 2026-10-24.
 
@@ -29,6 +29,14 @@ Installed at `/Applications/Upright.app`. Current system-wide profile for Lift (
 | Left/right click and scrolling | Untouched | Native behavior |
 
 No app-specific profile was added. App restart was tested: the Lift reconnected in Upright and the menu-bar panel still showed the Mission Control mapping. **Open at login is off**, so Upright will not start automatically. Sleep/wake, Bluetooth reconnect after an actual disconnect, and physical button presses remain to be tested.
+
+## Fedora PC configuration status
+
+- Host: Fedora Linux 44, KDE Plasma 6.7.5, Wayland.
+- The Lift (`046D:B031`) is paired with Fedora but was disconnected during inspection. Fedora reports no Solaar installation. The official Fedora repository offers Solaar 1.1.20 and its `solaar-udev` rules package.
+- Proposed equivalent mappings: keep Back and Forward native; map Top/DPI to KDE Overview (`Meta+W`) and Wheel Click to Present Windows for the current application (`Ctrl+F7`, similar to App Exposé). The current Plasma shortcut file confirms both bindings.
+- No Fedora package, device mapping, or udev rule has been installed. Solaar rules on Wayland need permission to access the Logitech HID++ interface and `/dev/uinput` to emit those shortcuts. The inspected upstream rule grants the active user raw access to Logitech HID devices and write access to `/dev/uinput`; this permits input injection and needs explicit approval. The current `/dev/uinput` node is root-only, and admin authentication is required to install the system package/rule.
+- Fedora validation is pending Solaar installation, approval of the udev access rule, and connecting the mouse on its Fedora Easy-Switch channel.
 
 ## Permissions and limits
 
